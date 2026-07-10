@@ -214,6 +214,9 @@ footer.site{ border-top:1px solid var(--border); padding:44px 0 28px; margin-top
 /* Forms */
 .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
 @media (max-width:640px){ .form-grid{ grid-template-columns:1fr; } }
+
+.contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:34px; }
+@media (max-width:860px){ .contact-grid{ grid-template-columns:1fr; } }
 label{ display:block; font-size:.85rem; font-weight:600; margin-bottom:6px; color:var(--text); }
 input, textarea, select{
   width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--border);
@@ -240,6 +243,7 @@ input[type="range"]::-moz-range-thumb{
 .calc-shell{ display:grid; grid-template-columns:1fr 1fr; gap:34px; align-items:start; }
 @media (max-width:900px){ .calc-shell{ grid-template-columns:1fr; } }
 .result-card{ position:sticky; top:96px; background:var(--navy); color:#fff; border-radius:20px; padding:30px; }
+@media (max-width:900px){ .result-card{ position:static; } }
 .result-card h3{ color:#fff; }
 .result-row{ display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.12); }
 .result-row span:first-child{ color:#B9C7D6; font-size:.9rem; }
@@ -277,8 +281,8 @@ html[data-theme="dark"] .note-box a{ color:#6FD9A5; }
 html[data-theme="dark"] .status-pending{ background:#4A3A0E; color:#F2C664; }
 html[data-theme="dark"] .status-approved{ background:#0F3A22; color:#7FE0A2; }
 
-.admin-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
-.admin-actions{ display:flex; gap:8px; }
+.admin-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+.admin-actions{ display:flex; gap:8px; flex-wrap:wrap; }
 .admin-actions button{ font-size:.78rem; padding:8px 12px; }
 
 .toast{
