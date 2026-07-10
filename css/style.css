@@ -289,6 +289,8 @@ html[data-theme="dark"] .status-approved{ background:#0F3A22; color:#7FE0A2; }
 .toast.show{ opacity:1; }
 
 /* Ad slots */
+/* TEMPORARY: ads not live yet (AdSense pending approval). Remove this line once real ad units go in. */
+.ad-slot{ display:none; }
 .ad-slot{ width:100%; max-width:var(--max); margin:0 auto; padding:10px 20px; }
 .ad-slot-inner{
   width:100%; min-height:90px; display:flex; align-items:center; justify-content:center;
