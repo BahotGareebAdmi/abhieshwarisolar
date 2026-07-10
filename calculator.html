@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solar Need Calculator — Estimate System Size & Subsidy | Abhieshwari Solar</title>
+<meta name="description" content="Estimate the solar system size, cost and PM Surya Ghar subsidy for your home, shop, office or factory in Gorakhpur based on roof area, electricity bill and AC count.">
+<link rel="canonical" href="https://abhieshwarisolar.in/calculator.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site">
+  <nav class="nav wrap">
+    <a href="index.html" class="brand">
+      <span class="word">Abhieshwari</span>
+      <span class="sub">Solar Energy Solutions</span>
+    </a>
+    <ul class="navlinks" id="navLinks">
+      <li><a href="index.html" data-page="index.html">Home</a></li>
+      <li><a href="services.html" data-page="services.html">Services</a></li>
+      <li><a href="calculator.html" data-page="calculator.html">Solar Calculator</a></li>
+      <li><a href="testimonials.html" data-page="testimonials.html">Testimonials</a></li>
+      <li><a href="contact.html" data-page="contact.html">Contact</a></li>
+    </ul>
+    <div class="navactions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode"></button>
+      <a href="contact.html" class="btn btn-primary desktop-only">Free Site Visit</a>
+      <button class="icon-btn hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section style="padding-bottom:10px;">
+    <div class="wrap section-head" style="margin-bottom:10px;">
+      <span class="eyebrow">Solar calculator</span>
+      <h1>What size solar system do you actually need?</h1>
+      <p>Answer a few questions for an instant estimate. This is a planning estimate — our team confirms exact sizing during your free site visit.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="wrap calc-shell">
+      <div>
+        <div class="card">
+          <label for="roofArea">Roof area available for panels (sq. ft.)</label>
+          <input type="number" id="roofArea" min="0" placeholder="e.g. 400" value="400">
+          <div class="range-row"><span>Small (150)</span><span>Large (1500+)</span></div>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <label for="monthlyBill">Average monthly electricity bill (₹)</label>
+          <input type="number" id="monthlyBill" min="0" placeholder="e.g. 4000" value="4000">
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <label for="acCount">Number of ACs in the house</label>
+          <input type="number" id="acCount" min="0" placeholder="e.g. 2" value="1">
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <label>Venue type</label>
+          <div class="tiles">
+            <div class="tile active" data-venue="home" onclick="setVenue('home', this)">Home</div>
+            <div class="tile" data-venue="shop" onclick="setVenue('shop', this)">Shop</div>
+            <div class="tile" data-venue="office" onclick="setVenue('office', this)">Office</div>
+            <div class="tile" data-venue="factory" onclick="setVenue('factory', this)">Factory</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px;" id="subsidyToggleRow">
+          <label>Interested in the government subsidy?</label>
+          <div class="tiles" style="grid-template-columns:1fr 1fr;">
+            <div class="tile active" data-subsidy="yes" onclick="setSubsidy(true, this)">Yes, apply subsidy</div>
+            <div class="tile" data-subsidy="no" onclick="setSubsidy(false, this)">No, skip it</div>
+          </div>
+          <p style="font-size:.8rem; margin-top:10px;">PM Surya Ghar subsidy applies to <strong>residential (Home)</strong> connections only.</p>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <span class="eyebrow" style="color:#F2C664;">Estimated result</span>
+        <div class="result-big" id="resSize">— kW</div>
+        <p style="color:#B9C7D6; margin-bottom:18px;" id="resPanels">— panels</p>
+
+        <div class="result-row"><span>Estimated system cost</span><span id="resCost">—</span></div>
+        <div class="result-row"><span>PM Surya Ghar subsidy</span><span id="resSubsidy">—</span></div>
+        <div class="result-row"><span>Net cost</span><span id="resNet">—</span></div>
+        <div class="result-row"><span>Estimated monthly savings</span><span id="resSavings">—</span></div>
+        <div class="result-row" style="border-bottom:none;"><span>Estimated payback period</span><span id="resPayback">—</span></div>
+
+        <button class="btn btn-primary" id="sendToContact" style="width:100%; margin-top:20px;">Get this as a formal quote</button>
+
+        <div id="subsidyNote" style="display:none; margin-top:14px; font-size:.82rem; color:#F2C664;">
+          The PM Surya Ghar central subsidy applies to residential connections only. Commercial, office and factory installations aren't eligible under this scheme.
+        </div>
+
+        <div class="note-box" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.2); color:#B9C7D6;">
+          Estimates assume ~107 sq.ft. of shadow-free roof per kW, ~120 units generated per kW per month, and average domestic tariffs. Official subsidy slabs and eligibility: <a href="https://pmsuryaghar.gov.in" target="_blank" rel="noopener" style="color:#F2C664;">pmsuryaghar.gov.in</a>. Final sizing is confirmed during your free site visit.
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-grid">
+    <div>
+      <span class="word" style="font-family:'Berkshire Swash',cursive; font-size:1.5rem; background:linear-gradient(100deg,#A45324,#C9821F); -webkit-background-clip:text; background-clip:text; color:transparent;">Abhieshwari</span>
+      <p style="margin-top:10px; max-width:280px;">M/s Abhieshwari Enterprises and Developers — solar panel installation across Gorakhpur and nearby areas.</p>
+      <p style="font-size:.8rem;">GSTIN: 09FBJPR0315E1ZQ</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="calculator.html">Solar Calculator</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+919026573953">+91 90265 73953</a></li>
+        <li><a href="mailto:info@abhieshwarisolar.in">info@abhieshwarisolar.in</a></li>
+        <li>EWS-41, Janpriya Vihar Colony,<br>Humayunpur North, Gorakhpur</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://pmsuryaghar.gov.in" target="_blank" rel="noopener">PM Surya Ghar Yojana</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© <span id="year"></span> Abhieshwari Enterprises and Developers. All rights reserved.</span>
+    <span>Service available in Gorakhpur &amp; nearby areas</span>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="js/main.js"></script>
+<script src="js/calculator.js"></script>
+</body>
+</html>

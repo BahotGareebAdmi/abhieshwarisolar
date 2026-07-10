@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Abhieshwari Solar</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site">
+  <nav class="nav wrap">
+    <a href="index.html" class="brand">
+      <span class="word">Abhieshwari</span>
+      <span class="sub">Admin</span>
+    </a>
+    <div class="navactions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode"></button>
+      <button class="btn btn-outline" id="logoutBtn" style="display:none;">Sign out</button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section>
+    <div class="wrap" style="max-width:520px;">
+      <div id="adminNotice" class="card" style="display:none; margin-bottom:20px; border-color:#C9821F;">
+        <p style="margin:0;">Testimonials backend isn't connected yet. Follow README.md → "Step 2: Set up Supabase" to finish setup, then this page will work.</p>
+      </div>
+
+      <div class="card" id="loginBox" style="display:none;">
+        <h2 style="font-size:1.2rem;">Admin sign in</h2>
+        <p style="font-size:.85rem;">Sign in with the admin account you created in Supabase (see README.md).</p>
+        <form id="loginForm">
+          <div class="field">
+            <label for="adminEmail">Email</label>
+            <input type="email" id="adminEmail" required>
+          </div>
+          <div class="field">
+            <label for="adminPassword">Password</label>
+            <input type="password" id="adminPassword" required>
+          </div>
+          <button type="submit" class="btn btn-primary" id="loginBtn" style="width:100%;">Sign in</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboard" style="display:none; padding-top:0;">
+    <div class="wrap" style="max-width:760px;">
+      <div class="section-head" style="text-align:left; margin-bottom:24px;">
+        <span class="eyebrow">Testimonials</span>
+        <h2 style="font-size:1.5rem;">Approve, unpublish or delete</h2>
+      </div>
+      <div id="adminList"></div>
+    </div>
+  </section>
+</main>
+
+<script src="js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
