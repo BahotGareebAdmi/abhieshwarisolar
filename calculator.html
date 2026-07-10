@@ -4,12 +4,40 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Solar Need Calculator — Estimate System Size & Subsidy | Abhieshwari Solar</title>
-<meta name="description" content="Estimate the solar system size, cost and PM Surya Ghar subsidy for your home, shop, office or factory in Gorakhpur based on roof area, electricity bill and AC count.">
+<meta name="description" content="Estimate the solar system size, cost and PM Surya Ghar subsidy (central + UP state top-up) for your home, shop, office or factory in Gorakhpur based on roof area, electricity bill and AC count.">
 <link rel="canonical" href="https://abhieshwarisolar.in/calculator.html">
+<meta property="og:title" content="Solar Need Calculator — Estimate System Size & Subsidy | Abhieshwari Solar">
+<meta property="og:description" content="Estimate the solar system size, cost and PM Surya Ghar subsidy for your home, shop, office or factory in Gorakhpur.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://abhieshwarisolar.in/calculator.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Solar Need Calculator — Estimate System Size & Subsidy | Abhieshwari Solar">
+<meta name="twitter:description" content="Estimate the solar system size, cost and PM Surya Ghar subsidy for your home, shop, office or factory in Gorakhpur.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://abhieshwarisolar.in/" },
+    { "@type": "ListItem", "position": 2, "name": "Solar Calculator", "item": "https://abhieshwarisolar.in/calculator.html" }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1341866711589229" crossorigin="anonymous"></script>
+<!-- Google Analytics (GA4): replace G-XXXXXXXXXX once you create a property. See README.md -> "Visitor analytics setup". -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+-->
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -24,6 +52,7 @@
       <li><a href="services.html" data-page="services.html">Services</a></li>
       <li><a href="calculator.html" data-page="calculator.html">Solar Calculator</a></li>
       <li><a href="testimonials.html" data-page="testimonials.html">Testimonials</a></li>
+      <li><a href="faq.html" data-page="faq.html">FAQs</a></li>
       <li><a href="contact.html" data-page="contact.html">Contact</a></li>
     </ul>
     <div class="navactions">
@@ -36,12 +65,17 @@
   </nav>
 </header>
 
+<!-- Ad slot: header banner (below nav). Replace the placeholder div with your AdSense <ins> tag once approved. -->
+<div class="ad-slot ad-slot-header">
+  <div class="ad-slot-inner">Ad space — header banner (728×90 / responsive)</div>
+</div>
+
 <main id="main">
   <section style="padding-bottom:10px;">
     <div class="wrap section-head" style="margin-bottom:10px;">
       <span class="eyebrow">Solar calculator</span>
       <h1>What size solar system do you actually need?</h1>
-      <p>Answer a few questions for an instant estimate. This is a planning estimate — our team confirms exact sizing during your free site visit.</p>
+      <p>Move the sliders to match your home, then tap Calculate. This is a planning estimate — our team confirms exact sizing during your free site visit.</p>
     </div>
   </section>
 
@@ -49,28 +83,39 @@
     <div class="wrap calc-shell">
       <div>
         <div class="card">
-          <label for="roofArea">Roof area available for panels (sq. ft.)</label>
-          <input type="number" id="roofArea" min="0" placeholder="e.g. 400" value="400">
-          <div class="range-row"><span>Small (150)</span><span>Large (1500+)</span></div>
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <label for="roofArea">Roof area available for panels</label>
+            <span class="eyebrow" id="roofAreaLabel" style="color:var(--gold);"></span>
+          </div>
+          <input type="range" id="roofArea" min="100" max="2000" step="50" value="400">
+          <div class="range-row"><span>100 sq.ft</span><span>2000 sq.ft</span></div>
         </div>
 
         <div class="card" style="margin-top:16px;">
-          <label for="monthlyBill">Average monthly electricity bill (₹)</label>
-          <input type="number" id="monthlyBill" min="0" placeholder="e.g. 4000" value="4000">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <label for="monthlyBill">Average monthly electricity bill</label>
+            <span class="eyebrow" id="monthlyBillLabel" style="color:var(--gold);"></span>
+          </div>
+          <input type="range" id="monthlyBill" min="500" max="20000" step="250" value="4000">
+          <div class="range-row"><span>₹500</span><span>₹20,000</span></div>
         </div>
 
         <div class="card" style="margin-top:16px;">
-          <label for="acCount">Number of ACs in the house</label>
-          <input type="number" id="acCount" min="0" placeholder="e.g. 2" value="1">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <label for="acCount">Number of ACs in the house</label>
+            <span class="eyebrow" id="acCountLabel" style="color:var(--gold);"></span>
+          </div>
+          <input type="range" id="acCount" min="0" max="8" step="1" value="1">
+          <div class="range-row"><span>0</span><span>8</span></div>
         </div>
 
         <div class="card" style="margin-top:16px;">
           <label>Venue type</label>
           <div class="tiles">
-            <div class="tile active" data-venue="home" onclick="setVenue('home', this)">Home</div>
-            <div class="tile" data-venue="shop" onclick="setVenue('shop', this)">Shop</div>
-            <div class="tile" data-venue="office" onclick="setVenue('office', this)">Office</div>
-            <div class="tile" data-venue="factory" onclick="setVenue('factory', this)">Factory</div>
+            <div class="tile active" data-venue="home" onclick="setVenue('home', this)">🏠 Home</div>
+            <div class="tile" data-venue="shop" onclick="setVenue('shop', this)">🏪 Shop</div>
+            <div class="tile" data-venue="office" onclick="setVenue('office', this)">🏢 Office</div>
+            <div class="tile" data-venue="factory" onclick="setVenue('factory', this)">🏭 Factory</div>
           </div>
         </div>
 
@@ -80,39 +125,72 @@
             <div class="tile active" data-subsidy="yes" onclick="setSubsidy(true, this)">Yes, apply subsidy</div>
             <div class="tile" data-subsidy="no" onclick="setSubsidy(false, this)">No, skip it</div>
           </div>
-          <p style="font-size:.8rem; margin-top:10px;">PM Surya Ghar subsidy applies to <strong>residential (Home)</strong> connections only.</p>
+          <p style="font-size:.8rem; margin-top:10px;">PM Surya Ghar central subsidy + Uttar Pradesh state top-up apply to <strong>residential (Home)</strong> connections only.</p>
         </div>
+
+        <button class="btn btn-primary" id="calcBtn" style="width:100%; margin-top:20px; padding:16px;">⚡ Calculate my solar need</button>
       </div>
 
       <div class="result-card">
-        <span class="eyebrow" style="color:#F2C664;">Estimated result</span>
-        <div class="result-big" id="resSize">— kW</div>
-        <p style="color:#B9C7D6; margin-bottom:18px;" id="resPanels">— panels</p>
+        <span class="eyebrow" style="color:#8FD1FF;">Estimated result</span>
 
-        <div class="result-row"><span>Estimated system cost</span><span id="resCost">—</span></div>
-        <div class="result-row"><span>PM Surya Ghar subsidy</span><span id="resSubsidy">—</span></div>
-        <div class="result-row"><span>Net cost</span><span id="resNet">—</span></div>
-        <div class="result-row"><span>Estimated monthly savings</span><span id="resSavings">—</span></div>
-        <div class="result-row" style="border-bottom:none;"><span>Estimated payback period</span><span id="resPayback">—</span></div>
+        <div id="resultPlaceholder" style="padding:30px 0; text-align:center;">
+          <div style="font-size:2.4rem;">☀️</div>
+          <p style="color:#B9C7D6; margin-top:10px;">Set your details on the left, then tap <strong style="color:#fff;">Calculate my solar need</strong> to see your estimate here.</p>
+        </div>
 
-        <button class="btn btn-primary" id="sendToContact" style="width:100%; margin-top:20px;">Get this as a formal quote</button>
+        <div id="resultBody" style="display:none;">
+          <div class="result-big" id="resSize">— kW</div>
+          <p style="color:#B9C7D6; margin-bottom:18px;" id="resPanels">— panels</p>
 
-        <div id="subsidyNote" style="display:none; margin-top:14px; font-size:.82rem; color:#F2C664;">
-          The PM Surya Ghar central subsidy applies to residential connections only. Commercial, office and factory installations aren't eligible under this scheme.
+          <div class="result-row"><span>Estimated system cost</span><span id="resCost">—</span></div>
+          <div class="result-row"><span>PM Surya Ghar subsidy</span><span id="resSubsidy">—</span></div>
+          <div id="subsidyBreakdown" style="display:none; padding:8px 0 8px 12px; font-size:.8rem; color:#B9C7D6; border-bottom:1px solid rgba(255,255,255,0.12);">
+            <div style="display:flex; justify-content:space-between;"><span>Central (PM Surya Ghar)</span><span id="subCentral">—</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>UP state top-up (UPNEDA)</span><span id="subUP">—</span></div>
+          </div>
+          <div class="result-row"><span>Net cost</span><span id="resNet">—</span></div>
+          <div class="result-row"><span>Estimated monthly savings</span><span id="resSavings">—</span></div>
+          <div class="result-row" style="border-bottom:none;"><span>Estimated payback period</span><span id="resPayback">—</span></div>
+
+          <button class="btn btn-primary" id="sendToContact" style="width:100%; margin-top:20px;">Get this as a formal quote</button>
+        </div>
+
+        <div id="subsidyNote" style="display:none; margin-top:14px; font-size:.82rem; color:#8FD1FF;">
+          The PM Surya Ghar central subsidy and UP state top-up apply to residential connections only. Commercial, office and factory installations aren't eligible under this scheme.
         </div>
 
         <div class="note-box" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.2); color:#B9C7D6;">
-          Estimates assume ~107 sq.ft. of shadow-free roof per kW, ~120 units generated per kW per month, and average domestic tariffs. Official subsidy slabs and eligibility: <a href="https://pmsuryaghar.gov.in" target="_blank" rel="noopener" style="color:#F2C664;">pmsuryaghar.gov.in</a>. Final sizing is confirmed during your free site visit.
+          Estimates assume ~107 sq.ft. of shadow-free roof per kW, ~120 units generated per kW per month, average domestic tariffs, and the UP state top-up (₹15,000/kW, capped at ₹30,000), which is subject to current UPNEDA budget allocation. Official scheme details: <a href="https://pmsuryaghar.gov.in" target="_blank" rel="noopener" style="color:#8FD1FF;">pmsuryaghar.gov.in</a>. Final sizing and subsidy eligibility are confirmed during your free site visit.
         </div>
       </div>
     </div>
   </section>
+
+  <section style="background:var(--cream-2);">
+    <div class="wrap" style="max-width:760px; text-align:center;">
+      <span class="eyebrow">Choosing a vendor</span>
+      <h2 style="font-size:1.4rem;">Want to compare registered vendors in your area?</h2>
+      <p>The Government of India's PM Surya Ghar portal maintains an official state-and-district-wise list of registered solar vendors, so you can verify empanelment before choosing anyone.</p>
+      <a href="https://www.pmsuryaghar.gov.in/state-wise-vendor" target="_blank" rel="noopener" class="btn btn-outline">View official registered vendor list ↗</a>
+    </div>
+  </section>
+
+  <!-- Ad slot: in-content (lower half), placed away from the Calculate/Submit buttons above. -->
+  <div class="ad-slot ad-slot-incontent">
+    <div class="ad-slot-inner">Ad space — in-content (300×250 / responsive)</div>
+  </div>
 </main>
+
+<!-- Ad slot: pre-footer (lower half). Replace the placeholder div with your AdSense <ins> tag once approved. -->
+<div class="ad-slot ad-slot-prefooter">
+  <div class="ad-slot-inner">Ad space — pre-footer banner (728×90 / responsive)</div>
+</div>
 
 <footer class="site">
   <div class="wrap foot-grid">
     <div>
-      <span class="word" style="font-family:'Berkshire Swash',cursive; font-size:1.5rem; background:linear-gradient(100deg,#A45324,#C9821F); -webkit-background-clip:text; background-clip:text; color:transparent;">Abhieshwari</span>
+      <span class="word" style="font-family:'Berkshire Swash',cursive; font-size:1.5rem; background:linear-gradient(100deg,var(--navy),var(--green)); -webkit-background-clip:text; background-clip:text; color:transparent;">Abhieshwari</span>
       <p style="margin-top:10px; max-width:280px;">M/s Abhieshwari Enterprises and Developers — solar panel installation across Gorakhpur and nearby areas.</p>
       <p style="font-size:.8rem;">GSTIN: 09FBJPR0315E1ZQ</p>
     </div>
@@ -122,6 +200,7 @@
         <li><a href="services.html">Services</a></li>
         <li><a href="calculator.html">Solar Calculator</a></li>
         <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="faq.html">FAQs</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
@@ -137,6 +216,7 @@
       <h4>Resources</h4>
       <ul>
         <li><a href="https://pmsuryaghar.gov.in" target="_blank" rel="noopener">PM Surya Ghar Yojana</a></li>
+        <li><a href="https://www.pmsuryaghar.gov.in/state-wise-vendor" target="_blank" rel="noopener">Registered Vendors</a></li>
         <li><a href="admin.html">Admin</a></li>
       </ul>
     </div>

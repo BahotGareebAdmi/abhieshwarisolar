@@ -3,8 +3,8 @@
 // See README.md → "Step 2: Set up Supabase" for exact instructions.
 // Project Settings → API → Project URL / anon public key
 // ============================================================
-const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
-const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+const SUPABASE_URL = "https://pnptqdszhydrgdrpibbu.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_OqMtmcDr4j_Ctvr6e0y6RQ_um1E1MPI";
 
 // Do not put your Supabase "service_role" key anywhere in this folder.
 // The anon key above is safe to expose publicly — it only has the

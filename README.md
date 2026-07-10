@@ -132,14 +132,90 @@ number or email across the files and update it everywhere it appears.
 
 ---
 
+## Google Ads / AdSense setup (header banner)
+The site already has a header banner ad slot reserved on every page (right
+below the navigation bar) and commented-out AdSense code in each page's
+`<head>`. To turn it on:
+
+1. Go to **adsense.google.com** → sign up with the same domain
+   (`abhieshwarisolar.in`). You need an approved, live site with real
+   content — which you now have.
+2. Google will ask you to verify site ownership. It gives you a snippet
+   like:
+   ```html
+   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
+   ```
+3. In **every** HTML file, find the commented-out line:
+   ```html
+   <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+   ```
+   Uncomment it and replace `ca-pub-XXXXXXXXXXXXXXXX` with your real
+   publisher ID.
+4. Create a file named `ads.txt` in this folder (same level as
+   `index.html`) with this line (again, your real publisher ID):
+   ```
+   google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
+   ```
+   Google requires this for approval — without it, ads won't serve.
+5. In each page, find the placeholder div:
+   ```html
+   <div class="ad-slot ad-slot-header">
+     <div class="ad-slot-inner">Ad space — header banner (728×90 / responsive)</div>
+   </div>
+   ```
+   Replace the inner `<div class="ad-slot-inner">...</div>` with the
+   actual AdSense ad unit code Google gives you (an `<ins class="adsbygoogle">`
+   tag), then add `<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>`
+   right after it.
+6. Redeploy to Netlify (drag the updated folder in again).
+
+**Keeping it minimal for now:** leave only the header banner active to
+start. Add more ad slots later (e.g. between sections) by copying the
+same `ad-slot` block structure — the CSS classes are already reusable.
+
+**Note:** AdSense approval can take a few days to a few weeks and
+requires original content and enough traffic/policy compliance —
+Google reviews the actual live site, not a draft.
+
+## Visitor analytics (how many people visit your site)
+Two good free options:
+
+**Option A: Google Analytics (GA4)** — most common, free, detailed reports.
+1. Go to **analytics.google.com** → create an account and a property
+   for `abhieshwarisolar.in`.
+2. It gives you a Measurement ID like `G-ABC123XYZ4`.
+3. In every HTML file, find the commented GA4 snippet near the top of
+   `<head>` and uncomment it, replacing `G-XXXXXXXXXX` with your real ID
+   in **both** places it appears.
+4. Redeploy. Visits now show up in the Analytics dashboard within a
+   few hours (Realtime report shows them within minutes).
+
+**Option B: Netlify Analytics** — simpler, paid (~$9/month per site),
+server-side (more accurate, no cookie banner needed), built into your
+Netlify dashboard under **Site → Analytics**. Good if you'd rather not
+touch code at all.
+
+For a small local business site, GA4 (free) is the practical starting
+choice.
+
 ## Notes on the solar calculator
 The estimates use standard planning assumptions (roof area per kW,
 average generation per kW, average domestic tariff) — not a formal
-survey. Real sizing should always be confirmed on-site. The subsidy
-figures match the current PM Surya Ghar Yojana slabs (₹30,000/kW up to
-2kW, ₹18,000 for the 3rd kW, capped at ₹78,000), and apply to
-residential connections only. If the scheme's slabs ever change,
-update the numbers in `js/calculator.js` (`calcSubsidy` function).
+survey. Real sizing should always be confirmed on-site.
+
+The subsidy shown now has two parts, both residential-only:
+- **Central subsidy (PM Surya Ghar)**: ₹30,000/kW for the first 2kW,
+  ₹18,000 for the 3rd kW, capped at ₹78,000 total — set in
+  `calcCentralSubsidy()` in `js/calculator.js`.
+- **Uttar Pradesh state top-up (UPNEDA)**: ₹15,000/kW, capped at
+  ₹30,000 per household — set in `calcUPTopUp()` in the same file.
+  This is subject to current UPNEDA budget allocation and can change;
+  the page already carries a disclaimer about this next to the result.
+
+Combined, a UP resident installing 3kW+ can see up to ₹1,08,000 in
+total subsidy (₹78,000 + ₹30,000), which is what the calculator now
+shows. If either scheme's numbers change, update the two functions
+above — nothing else needs to change.
 
 ## Security measures already built in
 - Contact form: Netlify's built-in spam filtering + a honeypot field

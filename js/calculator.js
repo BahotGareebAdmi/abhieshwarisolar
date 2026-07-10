@@ -4,20 +4,26 @@
 // planning estimates, not a formal site-survey quotation.
 // ============================================================
 
-const STATE = { venue: 'home', subsidy: true };
+const STATE = { venue: 'home', subsidy: true, calculated: false };
 
 function fmtINR(n) {
   return '₹' + Math.round(n).toLocaleString('en-IN');
 }
 
-function calcSubsidy(kw) {
-  // PM Surya Ghar Muft Bijli Yojana — central subsidy, residential only
-  // ₹30,000/kW for first 2kW, ₹18,000 for 3rd kW, capped at ₹78,000 for 3kW+
+// Central PM Surya Ghar subsidy — ₹30,000/kW for first 2kW, ₹18,000 for 3rd kW, capped ₹78,000
+function calcCentralSubsidy(kw) {
   if (kw <= 0) return 0;
   if (kw <= 1) return 30000 * kw;
   if (kw <= 2) return 30000 + 30000 * (kw - 1);
   const extra = Math.min(kw - 2, 1);
   return Math.min(60000 + extra * 18000, 78000);
+}
+
+// Uttar Pradesh state top-up via UPNEDA — ₹15,000/kW, capped at ₹30,000 per household
+// This state top-up is subject to current UPNEDA budget allocation — verify before quoting.
+function calcUPTopUp(kw) {
+  if (kw <= 0) return 0;
+  return Math.min(15000 * kw, 30000);
 }
 
 function calculate() {
@@ -27,25 +33,27 @@ function calculate() {
   const venue = STATE.venue;
   const wantSubsidy = STATE.subsidy;
 
-  const tariff = venue === 'home' ? 7 : 9; // ₹/unit, rough average slab for UP
+  const tariff = venue === 'home' ? 7 : 9;
   const estUnits = monthlyBill / tariff;
 
-  const sizeFromBill = estUnits / 120;      // 120 units/kW/month, typical for Gorakhpur sun hours
-  const sizeFromRoof = roofArea / 107;      // ~107 sq.ft. needed per kW (matches PM Surya Ghar norm)
-  const sizeFromAC = 1 + acCount * 0.75;    // heuristic: base load + ~0.75kW per AC
+  const sizeFromBill = estUnits / 120;
+  const sizeFromRoof = roofArea / 107;
+  const sizeFromAC = 1 + acCount * 0.75;
 
   let recommended = Math.min(Math.max(sizeFromBill, sizeFromAC), sizeFromRoof || sizeFromBill);
   if (!isFinite(recommended) || recommended <= 0) recommended = 1;
   recommended = Math.max(1, Math.round(recommended * 2) / 2);
 
-  const panelCount = Math.max(2, Math.ceil((recommended * 1000) / 400)); // ~400W panels
+  const panelCount = Math.max(2, Math.ceil((recommended * 1000) / 400));
   const costLow = recommended * 50000;
   const costHigh = recommended * 65000;
   const costAvg = (costLow + costHigh) / 2;
 
   const subsidyEligible = venue === 'home';
-  const subsidy = subsidyEligible && wantSubsidy ? calcSubsidy(recommended) : 0;
-  const netCost = Math.max(costAvg - subsidy, 0);
+  const central = subsidyEligible && wantSubsidy ? calcCentralSubsidy(recommended) : 0;
+  const upTopUp = subsidyEligible && wantSubsidy ? calcUPTopUp(recommended) : 0;
+  const totalSubsidy = central + upTopUp;
+  const netCost = Math.max(costAvg - totalSubsidy, 0);
 
   const genUnits = Math.min(estUnits, recommended * 120) || recommended * 120;
   const monthlySavings = genUnits * tariff;
@@ -54,14 +62,29 @@ function calculate() {
   document.getElementById('resSize').textContent = recommended.toFixed(1) + ' kW';
   document.getElementById('resPanels').textContent = panelCount + ' panels (approx.)';
   document.getElementById('resCost').textContent = fmtINR(costLow) + ' – ' + fmtINR(costHigh);
-  document.getElementById('resSubsidy').textContent = subsidyEligible
-    ? (wantSubsidy ? fmtINR(subsidy) : 'Not applied')
-    : 'Residential only';
+
+  const subsidyLine = document.getElementById('resSubsidy');
+  if (subsidyEligible && wantSubsidy) {
+    subsidyLine.textContent = fmtINR(totalSubsidy) + ' total';
+    document.getElementById('subsidyBreakdown').style.display = 'block';
+    document.getElementById('subCentral').textContent = fmtINR(central);
+    document.getElementById('subUP').textContent = fmtINR(upTopUp);
+  } else {
+    subsidyLine.textContent = subsidyEligible ? 'Not applied' : 'Residential only';
+    document.getElementById('subsidyBreakdown').style.display = 'none';
+  }
+
   document.getElementById('resNet').textContent = fmtINR(netCost) + (subsidyEligible && wantSubsidy ? ' (after subsidy)' : '');
   document.getElementById('resSavings').textContent = fmtINR(monthlySavings) + ' / month (approx.)';
   document.getElementById('resPayback').textContent = paybackYears > 0 ? paybackYears.toFixed(1) + ' years' : '—';
 
   document.getElementById('subsidyNote').style.display = subsidyEligible ? 'none' : 'block';
+
+  const placeholder = document.getElementById('resultPlaceholder');
+  const resultBody = document.getElementById('resultBody');
+  if (placeholder) placeholder.style.display = 'none';
+  if (resultBody) resultBody.style.display = 'block';
+  STATE.calculated = true;
 }
 
 function setVenue(v, el) {
@@ -70,22 +93,33 @@ function setVenue(v, el) {
   el.classList.add('active');
   const subsidyRow = document.getElementById('subsidyToggleRow');
   subsidyRow.style.opacity = v === 'home' ? '1' : '.5';
-  calculate();
+  if (STATE.calculated) calculate();
 }
 
 function setSubsidy(v, el) {
   STATE.subsidy = v;
   document.querySelectorAll('.tile[data-subsidy]').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
-  calculate();
+  if (STATE.calculated) calculate();
+}
+
+function syncSliderLabel(id, labelId, suffix) {
+  const el = document.getElementById(id);
+  const label = document.getElementById(labelId);
+  if (el && label) label.textContent = Number(el.value).toLocaleString('en-IN') + suffix;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  ['roofArea', 'monthlyBill', 'acCount'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('input', calculate);
-  });
-  calculate();
+  syncSliderLabel('roofArea', 'roofAreaLabel', ' sq. ft.');
+  syncSliderLabel('monthlyBill', 'monthlyBillLabel', '');
+  syncSliderLabel('acCount', 'acCountLabel', '');
+
+  document.getElementById('roofArea').addEventListener('input', () => { syncSliderLabel('roofArea', 'roofAreaLabel', ' sq. ft.'); });
+  document.getElementById('monthlyBill').addEventListener('input', () => { syncSliderLabel('monthlyBill', 'monthlyBillLabel', ''); });
+  document.getElementById('acCount').addEventListener('input', () => { syncSliderLabel('acCount', 'acCountLabel', ''); });
+
+  const calcBtn = document.getElementById('calcBtn');
+  if (calcBtn) calcBtn.addEventListener('click', calculate);
 
   const leadBtn = document.getElementById('sendToContact');
   if (leadBtn) {

@@ -2,22 +2,22 @@
    Abhieshwari Solar — Design tokens
    ============================================================ */
 :root{
-  --navy: #0F2540;
-  --navy-2: #16324F;
-  --gold: #E8A33D;
-  --gold-dark: #C9821F;
-  --green: #1F6F4A;
-  --green-dark: #164F35;
-  --terracotta: #A45324;
-  --cream: #FBF8F2;
-  --cream-2: #F3ECDD;
-  --ink: #16202B;
-  --ink-soft: #46586B;
-  --line: rgba(15,37,64,0.12);
+  --navy: #0B4C8C;
+  --navy-2: #0E5FAD;
+  --gold: #1565C0;
+  --gold-dark: #0D4A94;
+  --green: #1D8A56;
+  --green-dark: #146640;
+  --terracotta: #0B4C8C;
+  --cream: #F5F9FC;
+  --cream-2: #EAF2F8;
+  --ink: #142430;
+  --ink-soft: #4B6072;
+  --line: rgba(11,76,140,0.14);
   --card: #FFFFFF;
   --radius: 14px;
-  --shadow: 0 10px 30px -12px rgba(15,37,64,0.25);
-  --max: 1140px;
+  --shadow: 0 10px 30px -12px rgba(11,76,140,0.25);
+  --max: 1180px;
 
   --bg: var(--cream);
   --bg-elev: var(--card);
@@ -25,18 +25,18 @@
   --text-soft: var(--ink-soft);
   --border: var(--line);
   --accent: var(--gold);
-  --accent-ink: #3A2600;
+  --accent-ink: #FFFFFF;
 }
 
 html[data-theme="dark"]{
-  --bg: #0B1520;
-  --bg-elev: #122238;
-  --text: #EDF2F7;
-  --text-soft: #A9BACB;
-  --border: rgba(237,242,247,0.12);
-  --navy: #0F2540;
-  --card: #122238;
-  --shadow: 0 10px 34px -12px rgba(0,0,0,0.55);
+  --bg: #081826;
+  --bg-elev: #0F2438;
+  --text: #EAF2F8;
+  --text-soft: #9FB6C7;
+  --border: rgba(234,242,248,0.14);
+  --navy: #0B4C8C;
+  --card: #0F2438;
+  --shadow: 0 10px 34px -12px rgba(0,0,0,0.6);
 }
 
 *{ box-sizing:border-box; }
@@ -81,7 +81,7 @@ html[data-theme="dark"] .eyebrow{ color:#6FD9A5; }
   transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
 }
 .btn:active{ transform:translateY(1px); }
-.btn-primary{ background:var(--gold); color:#2B1A00; box-shadow:0 8px 20px -8px rgba(232,163,61,0.6); }
+.btn-primary{ background:var(--gold); color:#fff; box-shadow:0 8px 20px -8px rgba(21,101,192,0.5); }
 .btn-primary:hover{ background:var(--gold-dark); }
 .btn-outline{ background:transparent; border-color:var(--border); color:var(--text); }
 .btn-outline:hover{ border-color:var(--green); color:var(--green); }
@@ -99,12 +99,16 @@ header.site{
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border);
 }
-.nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 20px; }
+.nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 20px; gap:24px; }
+@media (min-width:881px){
+  .nav{ padding:18px 20px; }
+  .navlinks{ gap:34px; }
+}
 .brand{ display:flex; align-items:baseline; gap:10px; text-decoration:none; }
 .brand .word{
   font-family:'Berkshire Swash', cursive;
   font-size:1.7rem;
-  background:linear-gradient(100deg, var(--terracotta), var(--gold-dark));
+  background:linear-gradient(100deg, var(--navy), var(--green));
   -webkit-background-clip:text; background-clip:text; color:transparent;
 }
 .brand .sub{
@@ -124,14 +128,17 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
 .hamburger{ display:none; }
 @media (max-width:880px){
   .navlinks{
-    position:fixed; inset:64px 0 0 0; background:var(--bg); flex-direction:column;
+    position:fixed; top:var(--header-h, 64px); left:0; right:0; bottom:0;
+    background:var(--bg); flex-direction:column;
     padding:30px 24px; gap:22px; transform:translateX(100%); transition:transform .25s ease;
-    border-top:1px solid var(--border);
+    border-top:1px solid var(--border); z-index:60; overflow-y:auto;
+    box-shadow:0 20px 40px -10px rgba(0,0,0,0.3);
   }
   .navlinks.open{ transform:translateX(0); }
-  .navlinks a{ font-size:1.15rem; }
+  .navlinks a{ font-size:1.15rem; display:block; padding:6px 0; }
   .hamburger{ display:flex; }
   .nav .btn-primary.desktop-only{ display:none; }
+  body.nav-open{ overflow:hidden; }
 }
 
 /* Hero */
@@ -213,6 +220,19 @@ input, textarea, select{
   background:var(--bg-elev); color:var(--text); font-family:inherit; font-size:.95rem;
 }
 textarea{ resize:vertical; min-height:110px; }
+
+input[type="range"]{
+  -webkit-appearance:none; appearance:none; width:100%; height:6px; border-radius:999px;
+  background:linear-gradient(90deg, var(--gold), var(--green)); outline:none; margin:10px 0 2px; padding:0; border:none;
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:22px; height:22px; border-radius:50%;
+  background:#fff; border:3px solid var(--gold); box-shadow:0 2px 8px rgba(0,0,0,0.25); cursor:pointer;
+}
+input[type="range"]::-moz-range-thumb{
+  width:22px; height:22px; border-radius:50%; background:#fff; border:3px solid var(--gold);
+  box-shadow:0 2px 8px rgba(0,0,0,0.25); cursor:pointer;
+}
 .field{ margin-bottom:16px; }
 .hp-field{ position:absolute; left:-9999px; top:-9999px; }
 
@@ -267,6 +287,54 @@ html[data-theme="dark"] .status-approved{ background:#0F3A22; color:#7FE0A2; }
   box-shadow:var(--shadow); z-index:200; opacity:0; pointer-events:none; transition:opacity .2s ease;
 }
 .toast.show{ opacity:1; }
+
+/* Ad slots */
+.ad-slot{ width:100%; max-width:var(--max); margin:0 auto; padding:10px 20px; }
+.ad-slot-inner{
+  width:100%; min-height:90px; display:flex; align-items:center; justify-content:center;
+  background:var(--bg-elev); border:1px dashed var(--border); border-radius:10px;
+  font-size:.72rem; color:var(--text-soft); letter-spacing:.04em; text-transform:uppercase;
+}
+.ad-slot-header .ad-slot-inner{ min-height:60px; }
+@media (max-width:600px){ .ad-slot-header .ad-slot-inner{ min-height:50px; font-size:.62rem; } }
+.ad-slot-incontent{ padding:30px 20px; }
+.ad-slot-incontent .ad-slot-inner{ min-height:250px; max-width:336px; margin:0 auto; }
+.ad-slot-prefooter{ padding:20px; }
+.ad-slot-prefooter .ad-slot-inner{ min-height:100px; }
+@media (max-width:600px){ .ad-slot-incontent .ad-slot-inner{ min-height:200px; } }
+
+/* Trust / "we handle the paperwork" section */
+.hoops-card{
+  background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--radius);
+  padding:20px 22px; display:flex; align-items:flex-start; gap:14px;
+}
+.hoops-card .num{
+  flex-shrink:0; width:32px; height:32px; border-radius:50%; background:color-mix(in srgb, var(--green) 16%, transparent);
+  color:var(--green); font-weight:700; font-family:'Fraunces', serif; display:flex; align-items:center; justify-content:center;
+}
+html[data-theme="dark"] .hoops-card .num{ color:#6FD9A5; }
+.hoops-card h3{ font-size:.98rem; margin-bottom:4px; }
+.hoops-card p{ font-size:.88rem; margin:0; }
+
+/* FAQ accordion */
+.faq-list{ display:flex; flex-direction:column; gap:12px; }
+.faq-item{
+  background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--radius);
+  overflow:hidden;
+}
+.faq-item summary{
+  list-style:none; cursor:pointer; padding:18px 22px; font-weight:600; font-family:'Fraunces', Georgia, serif;
+  display:flex; justify-content:space-between; align-items:center; gap:16px; color:var(--text);
+}
+.faq-item summary::-webkit-details-marker{ display:none; }
+.faq-item summary::after{
+  content:'+'; font-size:1.3rem; line-height:1; color:var(--green); flex-shrink:0;
+}
+html[data-theme="dark"] .faq-item summary::after{ color:#6FD9A5; }
+.faq-item[open] summary::after{ content:'\2212'; }
+.faq-item .faq-answer{ padding:0 22px 20px; margin:0; }
+.faq-group-label{ font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; color:var(--text-soft); margin:28px 0 12px; }
+.faq-group-label:first-of-type{ margin-top:6px; }
 
 .skip-link{
   position:absolute; left:-9999px; top:0; background:var(--gold); color:#2B1A00; padding:10px 16px; z-index:999;

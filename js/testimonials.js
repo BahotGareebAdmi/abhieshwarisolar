@@ -49,7 +49,7 @@ async function loadTestimonials() {
   if (!client) {
     grid.innerHTML = '';
     empty.style.display = 'block';
-    empty.textContent = 'Testimonials backend is not connected yet. See README.md to finish setup.';
+    empty.textContent = 'Testimonials backend isn\'t connected yet. Follow README.md → "Step 2: Set up Supabase" to finish setup, then this page will work.';
     return;
   }
   const { data, error } = await client
