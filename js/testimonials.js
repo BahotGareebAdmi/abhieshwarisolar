@@ -78,7 +78,7 @@ async function handleTestimonialSubmit(e) {
   // Basic client-side rate limit: 1 submission per 60 seconds per browser
   const last = Number(localStorage.getItem('as-testi-last') || 0);
   if (Date.now() - last < 60000) {
-    showToast('Please wait a moment before submitting again.');
+    showToast(t('testi.js.waitBeforeSubmit'));
     return;
   }
 
@@ -95,21 +95,21 @@ async function handleTestimonialSubmit(e) {
   const file = form.photo.files[0];
 
   if (!name || !location || !message) {
-    showToast('Please fill in your name, place and message.');
+    showToast(t('testi.js.fillRequired'));
     return;
   }
 
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Submitting…';
+  submitBtn.textContent = t('testi.js.submitting');
 
   try {
     let photo_url = null;
     if (file) {
       if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-        throw new Error('Please upload a JPG, PNG or WEBP photo.');
+        throw new Error(t('testi.js.photoType'));
       }
       if (file.size > 5 * 1024 * 1024) {
-        throw new Error('Photo must be under 5MB.');
+        throw new Error(t('testi.js.photoSize'));
       }
       const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${file.type.split('/')[1]}`;
       const { error: upErr } = await client.storage.from('testimonial-photos').upload(path, file);
@@ -125,12 +125,12 @@ async function handleTestimonialSubmit(e) {
 
     localStorage.setItem('as-testi-last', String(Date.now()));
     form.reset();
-    showToast('Thank you! Your testimonial will appear after review.');
+    showToast(t('testi.js.thankYou'));
   } catch (err) {
-    showToast(err.message || 'Something went wrong. Please try again.');
+    showToast(err.message || t('testi.js.genericError'));
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Submit testimonial';
+    submitBtn.textContent = t('testi.form.submit');
   }
 }
 

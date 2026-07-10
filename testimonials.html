@@ -45,25 +45,33 @@
   <nav class="nav wrap">
     <a href="index.html" class="brand">
       <span class="word">Abhieshwari</span>
-      <span class="sub">Solar Energy Solutions</span>
+      <span class="sub" data-i18n="nav.brandSub">Solar Energy Solutions</span>
     </a>
     <ul class="navlinks" id="navLinks">
-      <li><a href="index.html" data-page="index.html">Home</a></li>
-      <li><a href="services.html" data-page="services.html">Services</a></li>
-      <li><a href="calculator.html" data-page="calculator.html">Solar Calculator</a></li>
-      <li><a href="testimonials.html" data-page="testimonials.html">Testimonials</a></li>
-      <li><a href="faq.html" data-page="faq.html">FAQs</a></li>
-      <li><a href="contact.html" data-page="contact.html">Contact</a></li>
+      <li><a href="index.html" data-page="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="services.html" data-page="services.html" data-i18n="nav.services">Services</a></li>
+      <li><a href="calculator.html" data-page="calculator.html" data-i18n="nav.calculator">Solar Calculator</a></li>
+      <li><a href="testimonials.html" data-page="testimonials.html" data-i18n="nav.testimonials">Testimonials</a></li>
+      <li><a href="faq.html" data-page="faq.html" data-i18n="nav.faq">FAQs</a></li>
+      <li><a href="contact.html" data-page="contact.html" data-i18n="nav.contact">Contact</a></li>
     </ul>
     <div class="navactions">
+      <button class="icon-btn lang-toggle" id="langToggle" aria-label="Switch language">हिं</button>
       <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode"></button>
-      <a href="contact.html" class="btn btn-primary desktop-only">Free Site Visit</a>
+      <a href="contact.html" class="btn btn-primary desktop-only" data-i18n="nav.freeVisit">Free Site Visit</a>
       <button class="icon-btn hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
     </div>
   </nav>
 </header>
+
+<div class="promo-banner" role="note" aria-label="Special offer">
+  <div class="promo-track">
+    <span class="promo-item" data-i18n="promo.text">🎁 Limited-time offer — get a FREE 5G smartphone with every 3kW solar installation. Valid for the next 10 days!</span>
+    <span class="promo-item" data-i18n="promo.text">🎁 Limited-time offer — get a FREE 5G smartphone with every 3kW solar installation. Valid for the next 10 days!</span>
+  </div>
+</div>
 
 <!-- Ad slot: header banner (below nav). Replace the placeholder div with your AdSense <ins> tag once approved. -->
 <div class="ad-slot ad-slot-header">
@@ -74,15 +82,15 @@
 <main id="main">
   <section style="padding-bottom:10px;">
     <div class="wrap section-head" style="margin-bottom:10px;">
-      <span class="eyebrow">Testimonials</span>
-      <h1>What our customers say</h1>
-      <p>Real installations, real savings — shared by customers across Gorakhpur.</p>
+      <span class="eyebrow" data-i18n="nav.testimonials">Testimonials</span>
+      <h1 data-i18n="testi.h1">What our customers say</h1>
+      <p data-i18n="testi.p">Real installations, real savings — shared by customers across Gorakhpur.</p>
     </div>
   </section>
 
   <section style="padding-top:0;">
     <div class="wrap">
-      <p id="testiEmpty" style="display:none; text-align:center; color:var(--text-soft);">No testimonials published yet — be the first to share yours below.</p>
+      <p id="testiEmpty" style="display:none; text-align:center; color:var(--text-soft);" data-i18n="testi.empty">No testimonials published yet — be the first to share yours below.</p>
       <div class="masonry" id="testiGrid"></div>
     </div>
   </section>
@@ -95,36 +103,36 @@
   <section style="background:var(--cream-2);">
     <div class="wrap" style="max-width:640px;">
       <div class="section-head">
-        <span class="eyebrow">Share your experience</span>
-        <h2>Add your testimonial</h2>
-        <p>Your name and area are shown publicly. Your email stays private and is masked if ever displayed. Submissions are reviewed before appearing on the site.</p>
+        <span class="eyebrow" data-i18n="testi.form.eyebrow">Share your experience</span>
+        <h2 data-i18n="testi.form.h2">Add your testimonial</h2>
+        <p data-i18n="testi.form.p">Your name and area are shown publicly. Your email stays private and is masked if ever displayed. Submissions are reviewed before appearing on the site.</p>
       </div>
       <div class="card">
         <form id="testiForm">
           <p class="hp-field"><label>Leave blank: <input name="website" autocomplete="off"></label></p>
           <div class="form-grid">
             <div class="field">
-              <label for="tname">Your name</label>
+              <label for="tname" data-i18n="testi.form.name">Your name</label>
               <input type="text" id="tname" name="name" required>
             </div>
             <div class="field">
-              <label for="tlocation">Area / city</label>
+              <label for="tlocation" data-i18n="testi.form.location">Area / city</label>
               <input type="text" id="tlocation" name="location" required>
             </div>
           </div>
           <div class="field">
-            <label for="temail">Email (kept private)</label>
+            <label for="temail" data-i18n="testi.form.email">Email (kept private)</label>
             <input type="email" id="temail" name="email">
           </div>
           <div class="field">
-            <label for="tmessage">Your testimonial</label>
-            <textarea id="tmessage" name="message" required placeholder="How was your installation experience?"></textarea>
+            <label for="tmessage" data-i18n="testi.form.message">Your testimonial</label>
+            <textarea id="tmessage" name="message" required data-i18n-placeholder="testi.form.messagePlaceholder" placeholder="How was your installation experience?"></textarea>
           </div>
           <div class="field">
-            <label for="tphoto">Photo (optional, JPG/PNG/WEBP, under 5MB)</label>
+            <label for="tphoto" data-i18n="testi.form.photo">Photo (optional, JPG/PNG/WEBP, under 5MB)</label>
             <input type="file" id="tphoto" name="photo" accept="image/png,image/jpeg,image/webp">
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;">Submit testimonial</button>
+          <button type="submit" class="btn btn-primary" style="width:100%;" data-i18n="testi.form.submit">Submit testimonial</button>
         </form>
       </div>
     </div>
@@ -140,44 +148,45 @@
   <div class="wrap foot-grid">
     <div>
       <span class="word" style="font-family:'Berkshire Swash',cursive; font-size:1.5rem; background:linear-gradient(100deg,var(--navy),var(--green)); -webkit-background-clip:text; background-clip:text; color:transparent;">Abhieshwari</span>
-      <p style="margin-top:10px; max-width:280px;">M/s Abhieshwari Enterprises and Developers — solar panel installation across Gorakhpur and nearby areas.</p>
-      <p style="font-size:.8rem;">GSTIN: 09FBJPR0315E1ZQ</p>
+      <p style="margin-top:10px; max-width:280px;" data-i18n="footer.tagline">M/s Abhieshwari Enterprises and Developers — solar panel installation across Gorakhpur and nearby areas.</p>
+      <!-- GSTIN: 09FBJPR0315E1ZQ (hidden per owner request — remove this comment to restore) -->
     </div>
     <div>
-      <h4>Explore</h4>
+      <h4 data-i18n="footer.explore">Explore</h4>
       <ul>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="calculator.html">Solar Calculator</a></li>
-        <li><a href="testimonials.html">Testimonials</a></li>
-        <li><a href="faq.html">FAQs</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+        <li><a href="calculator.html" data-i18n="nav.calculator">Solar Calculator</a></li>
+        <li><a href="testimonials.html" data-i18n="nav.testimonials">Testimonials</a></li>
+        <li><a href="faq.html" data-i18n="nav.faq">FAQs</a></li>
+        <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
       </ul>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h4 data-i18n="footer.contact">Contact</h4>
       <ul>
         <li><a href="tel:+919026573953">+91 90265 73953</a></li>
         <li><a href="mailto:info@abhieshwarisolar.in">info@abhieshwarisolar.in</a></li>
-        <li>EWS-41, Janpriya Vihar Colony,<br>Humayunpur North, Gorakhpur</li>
+        <li data-i18n-html="footer.address.html">EWS-41, Janpriya Vihar Colony,<br>Humayunpur North, Gorakhpur</li>
       </ul>
     </div>
     <div>
-      <h4>Resources</h4>
+      <h4 data-i18n="footer.resources">Resources</h4>
       <ul>
-        <li><a href="https://pmsuryaghar.gov.in" target="_blank" rel="noopener">PM Surya Ghar Yojana</a></li>
-        <li><a href="admin.html">Admin</a></li>
+        <li><a href="https://pmsuryaghar.gov.in" target="_blank" rel="noopener" data-i18n="footer.pmSuryaGhar">PM Surya Ghar Yojana</a></li>
+        <li><a href="admin.html" data-i18n="footer.admin">Admin</a></li>
       </ul>
     </div>
   </div>
   <div class="wrap foot-bottom">
-    <span>© <span id="year"></span> Abhieshwari Enterprises and Developers. All rights reserved.</span>
-    <span>Service available in Gorakhpur &amp; nearby areas</span>
+    <span>© <span id="year"></span> <span data-i18n="footer.rights">Abhieshwari Enterprises and Developers. All rights reserved.</span></span>
+    <span data-i18n="footer.serviceArea">Service available in Gorakhpur &amp; nearby areas</span>
   </div>
 </footer>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 <script src="js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/testimonials.js"></script>
 </body>
 </html>

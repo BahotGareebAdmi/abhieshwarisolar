@@ -60,7 +60,7 @@ function calculate() {
   const paybackYears = monthlySavings > 0 ? (netCost / (monthlySavings * 12)) : 0;
 
   document.getElementById('resSize').textContent = recommended.toFixed(1) + ' kW';
-  document.getElementById('resPanels').textContent = panelCount + ' panels (approx.)';
+  document.getElementById('resPanels').textContent = panelCount + ' ' + t('calc.js.panelsApprox');
   document.getElementById('resCost').textContent = fmtINR(costLow) + ' – ' + fmtINR(costHigh);
 
   const subsidyLine = document.getElementById('resSubsidy');
@@ -70,13 +70,13 @@ function calculate() {
     document.getElementById('subCentral').textContent = fmtINR(central);
     document.getElementById('subUP').textContent = fmtINR(upTopUp);
   } else {
-    subsidyLine.textContent = subsidyEligible ? 'Not applied' : 'Residential only';
+    subsidyLine.textContent = subsidyEligible ? t('calc.js.notApplied') : t('calc.js.residentialOnly');
     document.getElementById('subsidyBreakdown').style.display = 'none';
   }
 
-  document.getElementById('resNet').textContent = fmtINR(netCost) + (subsidyEligible && wantSubsidy ? ' (after subsidy)' : '');
-  document.getElementById('resSavings').textContent = fmtINR(monthlySavings) + ' / month (approx.)';
-  document.getElementById('resPayback').textContent = paybackYears > 0 ? paybackYears.toFixed(1) + ' years' : '—';
+  document.getElementById('resNet').textContent = fmtINR(netCost) + (subsidyEligible && wantSubsidy ? t('calc.js.afterSubsidy') : '');
+  document.getElementById('resSavings').textContent = fmtINR(monthlySavings) + t('calc.js.perMonthApprox');
+  document.getElementById('resPayback').textContent = paybackYears > 0 ? paybackYears.toFixed(1) + t('calc.js.years') : '—';
 
   document.getElementById('subsidyNote').style.display = subsidyEligible ? 'none' : 'block';
 
@@ -109,14 +109,23 @@ function syncSliderLabel(id, labelId, suffix) {
   if (el && label) label.textContent = Number(el.value).toLocaleString('en-IN') + suffix;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  syncSliderLabel('roofArea', 'roofAreaLabel', ' sq. ft.');
+function syncAllSliderLabels() {
+  syncSliderLabel('roofArea', 'roofAreaLabel', t('calc.js.sqft'));
   syncSliderLabel('monthlyBill', 'monthlyBillLabel', '');
   syncSliderLabel('acCount', 'acCountLabel', '');
+}
 
-  document.getElementById('roofArea').addEventListener('input', () => { syncSliderLabel('roofArea', 'roofAreaLabel', ' sq. ft.'); });
+document.addEventListener('DOMContentLoaded', () => {
+  syncAllSliderLabels();
+
+  document.getElementById('roofArea').addEventListener('input', () => { syncSliderLabel('roofArea', 'roofAreaLabel', t('calc.js.sqft')); });
   document.getElementById('monthlyBill').addEventListener('input', () => { syncSliderLabel('monthlyBill', 'monthlyBillLabel', ''); });
   document.getElementById('acCount').addEventListener('input', () => { syncSliderLabel('acCount', 'acCountLabel', ''); });
+
+  document.addEventListener('languagechange', () => {
+    syncAllSliderLabels();
+    if (STATE.calculated) calculate();
+  });
 
   const calcBtn = document.getElementById('calcBtn');
   if (calcBtn) calcBtn.addEventListener('click', calculate);
