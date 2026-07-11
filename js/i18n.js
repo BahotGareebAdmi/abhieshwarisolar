@@ -28,9 +28,16 @@ const I18N = {
     'footer.rights': 'Abhieshwari Enterprises and Developers. All rights reserved.',
     'footer.serviceArea': 'Service available in Gorakhpur & nearby areas',
 
-    'promo.text': "🎁 Limited-time offer — get a FREE 5G smartphone with every 3kW solar installation. Valid for the next 10 days!",
+    'promo.popup.title': 'Limited-time offer!',
+    'promo.popup.text': 'Get a FREE 5G smartphone with every 3kW solar installation. Valid for the next 10 days!',
+    'promo.popup.cta': 'Chat on WhatsApp',
 
     'hero.emi': '💳 EMI starting from ₹2,000/month*',
+
+    'footer.followUs': 'Follow us',
+    'footer.privacyPolicy': 'Privacy Policy',
+    'consent.note.html': 'By submitting, you agree to our <a href="privacy-policy.html">Privacy Policy</a>.',
+    'privacy.h1': 'Privacy Policy',
 
     'index.eyebrow': 'Gorakhpur & nearby areas',
     'index.hero.h1.html': 'Put your rooftop to work with <span class="accent">solar that pays for itself</span>',
@@ -263,9 +270,16 @@ const I18N = {
     'footer.rights': 'अभीश्वरी एंटरप्राइजेज एंड डेवलपर्स। सर्वाधिकार सुरक्षित।',
     'footer.serviceArea': 'गोरखपुर और आसपास के क्षेत्रों में सेवा उपलब्ध',
 
-    'promo.text': "🎁 सीमित समय का ऑफर — हर 3kW सोलर इंस्टॉलेशन पर पाएं मुफ़्त 5G स्मार्टफोन! अगले 10 दिनों के लिए मान्य।",
+    'promo.popup.title': 'सीमित समय का ऑफर!',
+    'promo.popup.text': 'हर 3kW सोलर इंस्टॉलेशन पर पाएं मुफ़्त 5G स्मार्टफोन! अगले 10 दिनों के लिए मान्य।',
+    'promo.popup.cta': 'व्हाट्सएप पर चैट करें',
 
     'hero.emi': '💳 EMI ₹2,000/माह से शुरू*',
+
+    'footer.followUs': 'फॉलो करें',
+    'footer.privacyPolicy': 'गोपनीयता नीति',
+    'consent.note.html': 'सबमिट करके, आप हमारी <a href="privacy-policy.html">गोपनीयता नीति</a> से सहमत होते हैं।',
+    'privacy.h1': 'गोपनीयता नीति',
 
     'index.eyebrow': 'गोरखपुर और आसपास के क्षेत्र',
     'index.hero.h1.html': 'अपनी छत से कमाई शुरू करें — <span class="accent">ऐसा सोलर जो खुद अपनी लागत निकाल दे</span>',

@@ -142,11 +142,52 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
   body.nav-open{ overflow:hidden; }
 }
 
-/* Promo banner (running offer strip) */
-.promo-banner{ background:linear-gradient(100deg, var(--gold), var(--terracotta)); overflow:hidden; white-space:nowrap; }
-.promo-track{ display:inline-flex; animation:promoScroll 20s linear infinite; will-change:transform; }
-.promo-item{ display:inline-block; color:#fff; font-weight:700; font-size:.88rem; letter-spacing:.01em; padding:10px 40px; }
-@keyframes promoScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+/* Promo popup modal (offer, click-through to WhatsApp) */
+.promo-modal-backdrop{
+  position:fixed; inset:0; z-index:300; background:rgba(8,15,24,0.55);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+  animation:promoFadeIn .25s ease;
+}
+.promo-modal-backdrop[hidden]{ display:none; }
+@keyframes promoFadeIn{ from{ opacity:0; } to{ opacity:1; } }
+.promo-modal{
+  position:relative; max-width:380px; width:100%; background:var(--bg-elev); border-radius:20px;
+  padding:34px 28px 28px; text-align:center; box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+  animation:promoPopIn .3s ease;
+}
+@keyframes promoPopIn{ from{ opacity:0; transform:scale(.92) translateY(8px); } to{ opacity:1; transform:scale(1) translateY(0); } }
+.promo-modal-emoji{ font-size:2.6rem; margin-bottom:6px; }
+.promo-modal h3{ font-size:1.25rem; margin-bottom:10px; }
+.promo-modal p{ margin-bottom:22px; }
+.promo-modal .btn{ width:100%; background:#25D366; border-color:#25D366; }
+.promo-modal .btn:hover{ background:#1EBE5A; }
+.promo-modal-close{
+  position:absolute; top:12px; right:12px; width:32px; height:32px; border-radius:50%;
+  border:1px solid var(--border); background:var(--bg); color:var(--text); cursor:pointer;
+  font-size:1.2rem; line-height:1; display:flex; align-items:center; justify-content:center;
+}
+
+/* Floating WhatsApp button */
+.whatsapp-float{
+  position:fixed; bottom:22px; right:22px; z-index:150; width:56px; height:56px; border-radius:50%;
+  background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 24px -8px rgba(0,0,0,0.4);
+  transition:transform .15s ease;
+}
+.whatsapp-float:hover{ transform:scale(1.06); }
+.whatsapp-float svg{ width:30px; height:30px; }
+
+/* Footer social icons */
+.footer-social{ display:flex; gap:10px; margin-top:14px; }
+.footer-social a{
+  width:36px; height:36px; border-radius:50%; border:1px solid var(--border); background:var(--bg-elev);
+  display:flex; align-items:center; justify-content:center; color:var(--text-soft);
+}
+.footer-social a:hover{ color:var(--text); border-color:var(--green); }
+.footer-social svg{ width:18px; height:18px; }
+
+.consent-note{ font-size:.78rem; color:var(--text-soft); text-align:center; margin-top:10px; }
+.consent-note a{ color:var(--green); font-weight:600; text-decoration:underline; }
+html[data-theme="dark"] .consent-note a{ color:#6FD9A5; }
 
 /* EMI highlight badge */
 .emi-badge{
