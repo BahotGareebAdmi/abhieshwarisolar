@@ -13,6 +13,7 @@ const I18N = {
     'nav.calculator': 'Solar Calculator',
     'nav.testimonials': 'Testimonials',
     'nav.faq': 'FAQs',
+    'nav.guides': 'Guides',
     'nav.contact': 'Contact',
     'nav.brandSub': 'Solar Energy Solutions',
     'nav.freeVisit': 'Free Site Visit',
@@ -31,6 +32,7 @@ const I18N = {
     'promo.popup.title': 'Limited-time offer!',
     'promo.popup.text': 'Get a FREE 5G smartphone with every 3kW solar installation. Valid for the next 10 days!',
     'promo.popup.cta': 'Chat on WhatsApp',
+    'promo.badge': '🎁 Offer',
 
     'hero.emi': '💳 EMI starting from ₹2,000/month*',
 
@@ -38,6 +40,8 @@ const I18N = {
     'footer.privacyPolicy': 'Privacy Policy',
     'consent.note.html': 'By submitting, you agree to our <a href="privacy-policy.html">Privacy Policy</a>.',
     'privacy.h1': 'Privacy Policy',
+    'guides.h1': 'Solar Guides & Resources',
+    'guides.intro': 'In-depth, practical guides on rooftop solar — subsidy, sizing, maintenance and more — written for homeowners and businesses in Gorakhpur.',
 
     'index.eyebrow': 'Gorakhpur & nearby areas',
     'index.hero.h1.html': 'Put your rooftop to work with <span class="accent">solar that pays for itself</span>',
@@ -255,6 +259,7 @@ const I18N = {
     'nav.calculator': 'सोलर कैलकुलेटर',
     'nav.testimonials': 'प्रशंसापत्र',
     'nav.faq': 'सामान्य प्रश्न',
+    'nav.guides': 'गाइड्स',
     'nav.contact': 'संपर्क करें',
     'nav.brandSub': 'सोलर ऊर्जा समाधान',
     'nav.freeVisit': 'मुफ़्त साइट विज़िट',
@@ -273,6 +278,7 @@ const I18N = {
     'promo.popup.title': 'सीमित समय का ऑफर!',
     'promo.popup.text': 'हर 3kW सोलर इंस्टॉलेशन पर पाएं मुफ़्त 5G स्मार्टफोन! अगले 10 दिनों के लिए मान्य।',
     'promo.popup.cta': 'व्हाट्सएप पर चैट करें',
+    'promo.badge': '🎁 ऑफर',
 
     'hero.emi': '💳 EMI ₹2,000/माह से शुरू*',
 

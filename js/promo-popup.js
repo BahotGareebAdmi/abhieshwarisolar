@@ -1,26 +1,25 @@
 // ============================================================
-// Offer popup — shows once per browser session, links to WhatsApp.
+// Offer popup — opens only when the visitor taps the floating
+// offer badge. No auto-trigger: avoids being an intrusive
+// interstitial on load or scroll.
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
   const backdrop = document.getElementById('promoBackdrop');
-  if (!backdrop) return;
+  const badge = document.getElementById('promoBadgeBtn');
+  if (!backdrop || !badge) return;
   const closeBtn = document.getElementById('promoModalClose');
-  const SEEN_KEY = 'as-promo-seen';
 
+  function openModal() {
+    backdrop.hidden = false;
+    document.body.classList.add('promo-modal-open');
+  }
   function closeModal() {
     backdrop.hidden = true;
     document.body.classList.remove('promo-modal-open');
-    sessionStorage.setItem(SEEN_KEY, '1');
   }
 
-  if (!sessionStorage.getItem(SEEN_KEY)) {
-    setTimeout(() => {
-      backdrop.hidden = false;
-      document.body.classList.add('promo-modal-open');
-    }, 1500);
-  }
-
+  badge.addEventListener('click', openModal);
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', (e) => {
     if (e.target === backdrop) closeModal();
@@ -29,5 +28,5 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape' && !backdrop.hidden) closeModal();
   });
   const cta = document.getElementById('promoModalCta');
-  if (cta) cta.addEventListener('click', () => { sessionStorage.setItem(SEEN_KEY, '1'); });
+  if (cta) cta.addEventListener('click', closeModal);
 });

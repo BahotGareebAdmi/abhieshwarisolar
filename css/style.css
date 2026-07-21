@@ -129,17 +129,25 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
 .hamburger{ display:none; }
 @media (max-width:880px){
   .navlinks{
-    position:fixed; top:var(--header-h, 64px); left:0; right:0; bottom:0;
+    position:fixed; top:var(--header-h, 64px); left:0; right:0;
+    height:calc(100vh - var(--header-h, 64px)); height:calc(100dvh - var(--header-h, 64px));
     background:var(--bg); flex-direction:column;
-    padding:30px 24px; gap:22px; transform:translateX(100%); transition:transform .25s ease;
+    padding:8px 24px 30px; gap:0; transform:translateX(100%); transition:transform .25s ease;
     border-top:1px solid var(--border); z-index:60; overflow-y:auto;
     box-shadow:0 20px 40px -10px rgba(0,0,0,0.3);
   }
   .navlinks.open{ transform:translateX(0); }
-  .navlinks a{ font-size:1.15rem; display:block; padding:6px 0; }
+  .navlinks li{ border-bottom:1px solid var(--border); }
+  .navlinks li:last-child{ border-bottom:none; }
+  .navlinks a{ font-size:1.08rem; display:block; padding:16px 2px; }
   .hamburger{ display:flex; }
   .nav .btn-primary.desktop-only{ display:none; }
   body.nav-open{ overflow:hidden; }
+}
+@media (max-width:480px){
+  .brand .sub{ display:none; }
+  .navactions{ gap:6px; }
+  .lang-toggle{ padding:0 8px; font-size:.76rem; }
 }
 
 /* Promo popup modal (offer, click-through to WhatsApp) */
@@ -166,6 +174,15 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
   border:1px solid var(--border); background:var(--bg); color:var(--text); cursor:pointer;
   font-size:1.2rem; line-height:1; display:flex; align-items:center; justify-content:center;
 }
+
+/* Floating offer badge (opens the promo modal on tap) */
+.promo-badge{
+  position:fixed; bottom:90px; right:22px; z-index:140; border:none; cursor:pointer;
+  background:var(--gold); color:#fff; padding:10px 16px; border-radius:999px;
+  font-weight:700; font-size:.82rem; display:flex; align-items:center; gap:6px;
+  box-shadow:0 8px 20px -6px rgba(0,0,0,0.4); font-family:inherit;
+}
+.promo-badge:hover{ background:var(--gold-dark); }
 
 /* Floating WhatsApp button */
 .whatsapp-float{
