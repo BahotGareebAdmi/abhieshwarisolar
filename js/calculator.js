@@ -85,6 +85,92 @@ function calculate() {
   if (placeholder) placeholder.style.display = 'none';
   if (resultBody) resultBody.style.display = 'block';
   STATE.calculated = true;
+
+  renderBrandCompare(recommended, costLow, costHigh, subsidyEligible && wantSubsidy ? totalSubsidy : 0);
+}
+
+// --- Brand comparer carousel ---
+// Ratios are relative to the same ₹50k-65k/kW baseline used above.
+// Loom Solar & Adani: best current discount (~5% below Tata, i.e. a 19:20 ratio).
+// Waaree: a little less (~2.5% below Tata). Tata: baseline, least discount room.
+// Update these ratios directly if pricing/discounts change.
+const BRAND_DATA = [
+  { key: 'tata', name: 'Tata Power Solar', ratio: 1.00, warrantyKey: 'calc.brand.tata.warranty', best: false },
+  { key: 'adani', name: 'Adani Solar', ratio: 0.95, warrantyKey: 'calc.brand.adani.warranty', best: true },
+  { key: 'loom', name: 'Loom Solar', ratio: 0.95, warrantyKey: 'calc.brand.loom.warranty', best: true },
+  { key: 'waaree', name: 'Waaree', ratio: 0.975, warrantyKey: 'calc.brand.waaree.warranty', best: false }
+];
+
+function renderBrandCompare(kw, costLow, costHigh, subsidy) {
+  const section = document.getElementById('brandCompareSection');
+  const carousel = document.getElementById('brandCarousel');
+  const dotsWrap = document.getElementById('brandDots');
+  if (!section || !carousel || !dotsWrap) return;
+
+  const sizeLabel = kw.toFixed(1) + ' kW';
+  const waMsgBase = `Hi, I used the solar calculator for a ${sizeLabel} system. Please share a quote for `;
+
+  carousel.innerHTML = BRAND_DATA.map((b, i) => {
+    const bLow = costLow * b.ratio;
+    const bHigh = costHigh * b.ratio;
+    const bAvg = (bLow + bHigh) / 2;
+    const netCost = Math.max(bAvg - subsidy, 0);
+    const waText = encodeURIComponent(waMsgBase + b.name + '.');
+    return `
+      <div class="brand-card${b.best ? ' brand-best' : ''}" data-index="${i}">
+        <div class="brand-card-top">
+          <span class="brand-card-name">${b.name}</span>
+          ${b.best ? `<span class="brand-badge">${t('calc.brand.bestDiscount')}</span>` : ''}
+        </div>
+        <div class="brand-card-row"><span>${t('calc.brand.systemCost')}</span><span>${fmtINR(bLow)} – ${fmtINR(bHigh)}</span></div>
+        <div class="brand-card-row"><span>${t('calc.brand.warranty')}</span><span>${t(b.warrantyKey)}</span></div>
+        <div class="brand-card-net">${fmtINR(netCost)}<span style="font-size:.7rem; color:var(--text-soft); font-family:'Work Sans',sans-serif; display:block;">${t('calc.brand.netCost')}</span></div>
+        <a class="btn btn-primary" style="width:100%; font-size:.85rem; padding:12px;" target="_blank" rel="noopener" href="https://wa.me/919026573953?text=${waText}">${t('calc.brand.cta')}</a>
+      </div>`;
+  }).join('');
+
+  dotsWrap.innerHTML = BRAND_DATA.map((_, i) => `<button class="brand-dot${i === 0 ? ' active' : ''}" data-index="${i}" aria-label="Go to brand ${i + 1}"></button>`).join('');
+
+  section.style.display = 'block';
+  setupBrandCarousel();
+}
+
+let brandCarouselObserver = null;
+function setupBrandCarousel() {
+  const carousel = document.getElementById('brandCarousel');
+  const prevBtn = document.getElementById('brandPrev');
+  const nextBtn = document.getElementById('brandNext');
+  const dots = Array.from(document.querySelectorAll('.brand-dot'));
+  const cards = Array.from(document.querySelectorAll('.brand-card'));
+  if (!carousel || !cards.length) return;
+
+  const scrollToCard = (i) => {
+    const card = cards[Math.max(0, Math.min(i, cards.length - 1))];
+    if (card) card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  };
+
+  if (prevBtn) prevBtn.onclick = () => {
+    const active = dots.findIndex(d => d.classList.contains('active'));
+    scrollToCard((active > 0 ? active : 1) - 1);
+  };
+  if (nextBtn) nextBtn.onclick = () => {
+    const active = dots.findIndex(d => d.classList.contains('active'));
+    scrollToCard((active >= 0 ? active : -1) + 1);
+  };
+  dots.forEach(dot => {
+    dot.onclick = () => scrollToCard(Number(dot.dataset.index));
+  });
+
+  if (brandCarouselObserver) brandCarouselObserver.disconnect();
+  brandCarouselObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+        const i = Number(entry.target.dataset.index);
+        dots.forEach(d => d.classList.toggle('active', Number(d.dataset.index) === i));
+      }
+    });
+  }, { root: carousel, threshold: [0.6] });
+  cards.forEach(c => brandCarouselObserver.observe(c));
 }
 
 function setVenue(v, el) {
