@@ -85,8 +85,6 @@ function calculate() {
   if (placeholder) placeholder.style.display = 'none';
   if (resultBody) resultBody.style.display = 'block';
   STATE.calculated = true;
-
-  renderBrandCompare(recommended, costLow, costHigh, subsidyEligible && wantSubsidy ? totalSubsidy : 0);
 }
 
 // --- Brand comparer carousel ---
@@ -100,6 +98,24 @@ const BRAND_DATA = [
   { key: 'loom', name: 'Loom Solar', ratio: 0.95, warrantyKey: 'calc.brand.loom.warranty', best: true },
   { key: 'waaree', name: 'Waaree', ratio: 0.975, warrantyKey: 'calc.brand.waaree.warranty', best: false }
 ];
+
+// Standalone brand comparer state: independent of the main calculator form/button above.
+const BRAND_STATE = { kw: 3, subsidy: true };
+
+function updateBrandCompare() {
+  const kw = BRAND_STATE.kw;
+  const costLow = kw * 50000;
+  const costHigh = kw * 65000;
+  const subsidy = BRAND_STATE.subsidy ? (calcCentralSubsidy(kw) + calcUPTopUp(kw)) : 0;
+  renderBrandCompare(kw, costLow, costHigh, subsidy);
+}
+
+function setBrandSubsidy(v, el) {
+  BRAND_STATE.subsidy = v;
+  document.querySelectorAll('.tile[data-brandsubsidy]').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  updateBrandCompare();
+}
 
 function renderBrandCompare(kw, costLow, costHigh, subsidy) {
   const section = document.getElementById('brandCompareSection');
@@ -199,6 +215,7 @@ function syncAllSliderLabels() {
   syncSliderLabel('roofArea', 'roofAreaLabel', t('calc.js.sqft'));
   syncSliderLabel('monthlyBill', 'monthlyBillLabel', '');
   syncSliderLabel('acCount', 'acCountLabel', '');
+  syncSliderLabel('brandKw', 'brandKwLabel', ' kW');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -208,9 +225,21 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('monthlyBill').addEventListener('input', () => { syncSliderLabel('monthlyBill', 'monthlyBillLabel', ''); });
   document.getElementById('acCount').addEventListener('input', () => { syncSliderLabel('acCount', 'acCountLabel', ''); });
 
+  const brandKwEl = document.getElementById('brandKw');
+  if (brandKwEl) {
+    brandKwEl.addEventListener('input', () => {
+      syncSliderLabel('brandKw', 'brandKwLabel', ' kW');
+      BRAND_STATE.kw = Number(brandKwEl.value);
+      updateBrandCompare();
+    });
+  }
+  // Brand comparer is standalone: renders on load, independent of the "Calculate my solar need" button above.
+  updateBrandCompare();
+
   document.addEventListener('languagechange', () => {
     syncAllSliderLabels();
     if (STATE.calculated) calculate();
+    updateBrandCompare();
   });
 
   const calcBtn = document.getElementById('calcBtn');
