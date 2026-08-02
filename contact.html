@@ -95,8 +95,7 @@
   <section style="padding-top:0;">
     <div class="wrap contact-grid" id="form">
       <div class="card">
-        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm" action="/thanks.html">
-          <input type="hidden" name="form-name" value="contact">
+        <form id="contactForm">
           <p class="hp-field"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
 
           <div class="form-grid">
@@ -210,6 +209,8 @@
 <script src="js/main.js"></script>
 <script src="js/i18n.js"></script>
 <script src="js/promo-popup.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
 <script src="js/contact.js"></script>
 </body>
 </html>

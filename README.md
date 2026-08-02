@@ -1,31 +1,29 @@
 # Abhieshwari Solar — Website Setup Guide
 
 Your site is ready in this folder. Two things need to be connected before
-everything works: **Supabase** (for testimonials) and **Netlify** (for hosting).
-The contact form works immediately with no setup — it uses Netlify Forms.
+everything works: **Supabase** (for testimonials and the contact form) and
+**Cloudflare Pages** (for hosting).
 
 ---
 
-## Step 1: Deploy to Netlify (5 minutes)
+## Step 1: Deploy to Cloudflare Pages
 
-1. Go to **netlify.com** → sign up (free, no credit card).
-2. On the "Add a project" screen, use **Upload your project files** →
-   drag this whole folder in (or zip it first).
-3. Netlify gives you a temporary URL like `random-name.netlify.app` —
-   the site is now live.
-4. Go to **Site settings → Domain management → Add a custom domain** →
-   type `abhieshwarisolar.in`.
-5. Netlify will show you DNS records to add. Go back to Hostinger's
-   **Domains → abhieshwarisolar.in → DNS/Nameservers → Edit**, and add:
-   - An **A record** pointing `@` to Netlify's load balancer IP (shown in Netlify)
-   - A **CNAME record** pointing `www` to your `xxxx.netlify.app` address
-6. Wait 10–60 minutes for DNS to update. Netlify auto-issues a free SSL
-   certificate once it detects the domain is pointed correctly.
+1. Go to **dash.cloudflare.com** → **Workers & Pages** → **Create** →
+   **Pages** → **Connect to Git** → select `abhieshwarisolar`.
+2. Framework preset: **None**. Build command: leave empty. Build output
+   directory: `/` (this site has no build step — it deploys as-is).
+3. Deploy. Cloudflare gives you a temporary URL like
+   `abhieshwarisolar.pages.dev` — the site is now live there.
+4. In the Pages project, go to **Custom domains → Add** → type
+   `abhieshwarisolar.in` (and `www.abhieshwarisolar.in` if you want both).
+5. At Hostinger, update the domain's **nameservers** to the two Cloudflare
+   gives you (Cloudflare shows these once you add the domain as a zone).
+   Every future push to the `main` branch on GitHub auto-deploys.
+6. Wait for DNS to propagate (can take up to a few hours). Cloudflare
+   auto-issues a free SSL certificate once it detects the domain.
 
-The contact form will start working the moment the site is live — no
-extra setup needed. Submissions appear in **Netlify dashboard → Forms**,
-and you can add your email under **Forms → Notifications → Email
-notification** so every submission also lands in your inbox.
+The contact form and testimonials both talk directly to Supabase from the
+browser — see Step 2. There's no Netlify Forms equivalent needed.
 
 ---
 
@@ -82,7 +80,47 @@ create policy "admin full access delete" on testimonials
   using (true);
 ```
 
-### 2.3 Create the photo storage bucket
+### 2.3 Create the contact_submissions table
+Also in **SQL Editor**, paste this and click Run — this is what the
+contact page's form submits into:
+
+```sql
+create table contact_submissions (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  phone text not null,
+  email text,
+  city text not null,
+  message text,
+  status text not null default 'new' check (status in ('new','contacted','done')),
+  created_at timestamptz not null default now()
+);
+
+alter table contact_submissions enable row level security;
+
+-- Anyone can submit a new lead
+create policy "public can insert" on contact_submissions
+  for insert to anon
+  with check (status = 'new');
+
+-- Only logged-in admin can view, update, or delete leads
+create policy "admin full access select" on contact_submissions
+  for select to authenticated
+  using (true);
+
+create policy "admin full access update" on contact_submissions
+  for update to authenticated
+  using (true);
+
+create policy "admin full access delete" on contact_submissions
+  for delete to authenticated
+  using (true);
+```
+
+Submitted leads show up under **Leads** on the `/admin.html` page (same
+login as testimonials) — mark them contacted/done or delete them there.
+
+### 2.4 Create the photo storage bucket
 Go to **Storage** → **New bucket** → name it exactly `testimonial-photos` →
 toggle **Public bucket** ON → Create.
 
@@ -98,13 +136,13 @@ create policy "public can view photos"
   using (bucket_id = 'testimonial-photos');
 ```
 
-### 2.4 Create your admin login
+### 2.5 Create your admin login
 1. Go to **Authentication → Users → Add user**.
 2. Enter your email and a strong password. This is what you'll use to
    log into `/admin.html` on your site.
 3. Leave "Auto confirm user" checked.
 
-### 2.5 Connect your site to Supabase
+### 2.6 Connect your site to Supabase
 1. In Supabase, go to **Project Settings → API**.
 2. Copy the **Project URL** and the **anon public** key.
 3. Open `js/config.js` in this folder and paste them in:
@@ -112,12 +150,12 @@ create policy "public can view photos"
    const SUPABASE_URL = "https://xxxxx.supabase.co";
    const SUPABASE_ANON_KEY = "eyJhbGciOi....";
    ```
-4. Re-upload the site to Netlify (drag the folder in again, or use
-   Netlify's "Deploys" tab → drag and drop to redeploy).
+4. Commit and push — Cloudflare Pages redeploys automatically.
 
 That's it. Testimonials submitted on the public page will now appear in
 your `/admin.html` login as "Pending" — approve them there and they go
-live on the public Testimonials page.
+live on the public Testimonials page. Contact form leads appear under
+**Leads** on the same admin page.
 
 **Never put your Supabase "service_role" key anywhere in this folder.**
 Only the "anon public" key belongs in `config.js` — it's safe to expose
@@ -167,7 +205,7 @@ below the navigation bar) and commented-out AdSense code in each page's
    actual AdSense ad unit code Google gives you (an `<ins class="adsbygoogle">`
    tag), then add `<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>`
    right after it.
-6. Redeploy to Netlify (drag the updated folder in again).
+6. Commit and push — Cloudflare Pages redeploys automatically.
 
 **Keeping it minimal for now:** leave only the header banner active to
 start. Add more ad slots later (e.g. between sections) by copying the
@@ -190,10 +228,10 @@ Two good free options:
 4. Redeploy. Visits now show up in the Analytics dashboard within a
    few hours (Realtime report shows them within minutes).
 
-**Option B: Netlify Analytics** — simpler, paid (~$9/month per site),
-server-side (more accurate, no cookie banner needed), built into your
-Netlify dashboard under **Site → Analytics**. Good if you'd rather not
-touch code at all.
+**Option B: Cloudflare Web Analytics** — free, privacy-friendly,
+server-side (no cookie banner needed), built into your Cloudflare
+dashboard under **your Pages project → Analytics**. Good if you'd
+rather not touch code at all.
 
 For a small local business site, GA4 (free) is the practical starting
 choice.
