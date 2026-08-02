@@ -34,7 +34,7 @@ const I18N = {
     'promo.popup.cta': 'Chat on WhatsApp',
     'promo.badge': '🎁 Offer',
 
-    'hero.emi': '💳 EMI starting from ₹2,000/month*',
+    'hero.emi': '💳 EMI starting from ₹890/month*',
 
     'footer.followUs': 'Follow us',
     'footer.privacyPolicy': 'Privacy Policy',
@@ -308,7 +308,7 @@ const I18N = {
     'promo.popup.cta': 'व्हाट्सएप पर चैट करें',
     'promo.badge': '🎁 ऑफर',
 
-    'hero.emi': '💳 EMI ₹2,000/माह से शुरू*',
+    'hero.emi': '💳 EMI ₹890/माह से शुरू*',
 
     'footer.followUs': 'फॉलो करें',
     'footer.privacyPolicy': 'गोपनीयता नीति',
