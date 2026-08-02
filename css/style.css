@@ -348,6 +348,15 @@ html[data-theme="dark"] .note-box a{ color:#6FD9A5; }
 @media (max-width:600px){ .masonry{ columns:1; } }
 .masonry .card{ margin-bottom:20px; display:inline-block; width:100%; }
 
+.testi-stars{ color:var(--gold); font-size:1rem; letter-spacing:2px; margin-bottom:10px; }
+.google-badge{
+  display:inline-flex; align-items:center; gap:6px; font-size:.78rem; font-weight:700;
+  color:var(--text-soft); margin-top:10px;
+}
+.testi-translated{ font-size:.76rem; color:var(--text-soft); font-style:italic; margin-top:8px; }
+.google-link{ font-weight:700; color:var(--green); text-decoration:underline; }
+html[data-theme="dark"] .google-link{ color:#6FD9A5; }
+
 .status-pill{ display:inline-block; padding:4px 10px; border-radius:999px; font-size:.72rem; font-weight:700; }
 .status-pending{ background:#FDECC8; color:#7A4E00; }
 .status-approved{ background:#D8F0DF; color:#146C34; }
