@@ -1,0 +1,55 @@
+name: Claude
+
+# Mention @claude in an issue, an issue comment, or a PR comment and Claude
+# will make the change, commit it straight to main, and Cloudflare Workers
+# Builds will auto-deploy it to https://abhieshwarisolar.in
+#
+# Requires two things to be set up once (see CLAUDE.md "Mobile workflow"):
+#   1. The Claude GitHub App installed on this repo: https://github.com/apps/claude
+#   2. A repo secret CLAUDE_CODE_OAUTH_TOKEN (generate with `claude setup-token`)
+
+on:
+  issue_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned]
+  pull_request_review_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
+# Don't let two runs fight over main at the same time.
+concurrency:
+  group: claude-main
+  cancel-in-progress: false
+
+jobs:
+  claude:
+    if: |
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Run Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          base_branch: main
+          use_sticky_comment: "true"
+          claude_args: |
+            --max-turns 30
+            --allowedTools "Bash(git add:*),Bash(git commit:*),Bash(git push:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(git checkout:*),Bash(git pull:*)"
+            --append-system-prompt "DEPLOYMENT MODEL: this repository auto-deploys to the live production site abhieshwarisolar.in on every push to main. Work directly on the main branch. Do NOT create a feature branch and do NOT open a pull request. When your change is complete, stage it, commit it with a clear message, and run 'git push origin main'. Because every push goes live to real customers immediately, be conservative: make the smallest change that satisfies the request, never delete or rewrite unrelated files, and never touch wrangler.jsonc, _headers, js/config.js, sitemap.xml or robots.txt unless you were explicitly asked to. If a request is ambiguous or would require a large or risky rewrite, do not guess - reply in the comment asking for clarification and make no commit."
