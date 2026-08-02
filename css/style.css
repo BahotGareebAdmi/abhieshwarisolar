@@ -1,5 +1,5 @@
 /* ============================================================
-   Abhieshwari Solar — Design tokens
+   Abhieshwari Solar: Design tokens
    ============================================================ */
 :root{
   --navy: #0B4C8C;
@@ -67,7 +67,7 @@ img{ max-width:100%; display:block; }
 }
 html[data-theme="dark"] .eyebrow{ color:#6FD9A5; }
 
-/* Sun-ray divider — signature motif */
+/* Sun-ray divider: signature motif */
 .ray-divider{
   position:relative; height:26px; margin:0 auto 8px; width:120px;
 }

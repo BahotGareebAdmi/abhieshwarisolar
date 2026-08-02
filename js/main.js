@@ -1,5 +1,5 @@
 // ============================================================
-// Abhieshwari Solar — shared behaviour (theme + nav)
+// Abhieshwari Solar: shared behaviour (theme + nav)
 // ============================================================
 
 (function () {

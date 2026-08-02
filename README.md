@@ -1,4 +1,4 @@
-# Abhieshwari Solar — Website Setup Guide
+# Abhieshwari Solar, Website Setup Guide
 
 Your site is ready in this folder. Two things need to be connected before
 everything works: **Supabase** (for testimonials and the contact form) and
@@ -11,9 +11,9 @@ everything works: **Supabase** (for testimonials and the contact form) and
 1. Go to **dash.cloudflare.com** → **Workers & Pages** → **Create** →
    **Pages** → **Connect to Git** → select `abhieshwarisolar`.
 2. Framework preset: **None**. Build command: leave empty. Build output
-   directory: `/` (this site has no build step — it deploys as-is).
+   directory: `/` (this site has no build step, it deploys as-is).
 3. Deploy. Cloudflare gives you a temporary URL like
-   `abhieshwarisolar.pages.dev` — the site is now live there.
+   `abhieshwarisolar.pages.dev`, the site is now live there.
 4. In the Pages project, go to **Custom domains → Add** → type
    `abhieshwarisolar.in` (and `www.abhieshwarisolar.in` if you want both).
 5. At Hostinger, update the domain's **nameservers** to the two Cloudflare
@@ -23,11 +23,11 @@ everything works: **Supabase** (for testimonials and the contact form) and
    auto-issues a free SSL certificate once it detects the domain.
 
 The contact form and testimonials both talk directly to Supabase from the
-browser — see Step 2. There's no Netlify Forms equivalent needed.
+browser, see Step 2. There's no Netlify Forms equivalent needed.
 
 ---
 
-## Step 2: Set up Supabase (for testimonials) — 15 minutes
+## Step 2: Set up Supabase (for testimonials), 15 minutes
 
 Testimonials (photo uploads, approval queue, admin login) need a small
 free database. Supabase's free tier covers this easily at your scale.
@@ -81,7 +81,7 @@ create policy "admin full access delete" on testimonials
 ```
 
 ### 2.3 Create the contact_submissions table
-Also in **SQL Editor**, paste this and click Run — this is what the
+Also in **SQL Editor**, paste this and click Run, this is what the
 contact page's form submits into:
 
 ```sql
@@ -118,7 +118,7 @@ create policy "admin full access delete" on contact_submissions
 ```
 
 Submitted leads show up under **Leads** on the `/admin.html` page (same
-login as testimonials) — mark them contacted/done or delete them there.
+login as testimonials), mark them contacted/done or delete them there.
 
 ### 2.4 Create the photo storage bucket
 Go to **Storage** → **New bucket** → name it exactly `testimonial-photos` →
@@ -150,15 +150,15 @@ create policy "public can view photos"
    const SUPABASE_URL = "https://xxxxx.supabase.co";
    const SUPABASE_ANON_KEY = "eyJhbGciOi....";
    ```
-4. Commit and push — Cloudflare Pages redeploys automatically.
+4. Commit and push, Cloudflare Pages redeploys automatically.
 
 That's it. Testimonials submitted on the public page will now appear in
-your `/admin.html` login as "Pending" — approve them there and they go
+your `/admin.html` login as "Pending", approve them there and they go
 live on the public Testimonials page. Contact form leads appear under
 **Leads** on the same admin page.
 
 **Never put your Supabase "service_role" key anywhere in this folder.**
-Only the "anon public" key belongs in `config.js` — it's safe to expose
+Only the "anon public" key belongs in `config.js`, it's safe to expose
 publicly because the RLS policies above control exactly what it can do.
 
 ---
@@ -177,7 +177,7 @@ below the navigation bar) and commented-out AdSense code in each page's
 
 1. Go to **adsense.google.com** → sign up with the same domain
    (`abhieshwarisolar.in`). You need an approved, live site with real
-   content — which you now have.
+   content, which you now have.
 2. Google will ask you to verify site ownership. It gives you a snippet
    like:
    ```html
@@ -194,31 +194,31 @@ below the navigation bar) and commented-out AdSense code in each page's
    ```
    google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
    ```
-   Google requires this for approval — without it, ads won't serve.
+   Google requires this for approval, without it, ads won't serve.
 5. In each page, find the placeholder div:
    ```html
    <div class="ad-slot ad-slot-header">
-     <div class="ad-slot-inner">Ad space — header banner (728×90 / responsive)</div>
+     <div class="ad-slot-inner">Ad space: header banner (728×90 / responsive)</div>
    </div>
    ```
    Replace the inner `<div class="ad-slot-inner">...</div>` with the
    actual AdSense ad unit code Google gives you (an `<ins class="adsbygoogle">`
    tag), then add `<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>`
    right after it.
-6. Commit and push — Cloudflare Pages redeploys automatically.
+6. Commit and push, Cloudflare Pages redeploys automatically.
 
 **Keeping it minimal for now:** leave only the header banner active to
 start. Add more ad slots later (e.g. between sections) by copying the
-same `ad-slot` block structure — the CSS classes are already reusable.
+same `ad-slot` block structure, the CSS classes are already reusable.
 
 **Note:** AdSense approval can take a few days to a few weeks and
-requires original content and enough traffic/policy compliance —
+requires original content and enough traffic/policy compliance ,
 Google reviews the actual live site, not a draft.
 
 ## Visitor analytics (how many people visit your site)
 Two good free options:
 
-**Option A: Google Analytics (GA4)** — most common, free, detailed reports.
+**Option A: Google Analytics (GA4)**, most common, free, detailed reports.
 1. Go to **analytics.google.com** → create an account and a property
    for `abhieshwarisolar.in`.
 2. It gives you a Measurement ID like `G-ABC123XYZ4`.
@@ -228,7 +228,7 @@ Two good free options:
 4. Redeploy. Visits now show up in the Analytics dashboard within a
    few hours (Realtime report shows them within minutes).
 
-**Option B: Cloudflare Web Analytics** — free, privacy-friendly,
+**Option B: Cloudflare Web Analytics**, free, privacy-friendly,
 server-side (no cookie banner needed), built into your Cloudflare
 dashboard under **your Pages project → Analytics**. Good if you'd
 rather not touch code at all.
@@ -238,28 +238,28 @@ choice.
 
 ## Notes on the solar calculator
 The estimates use standard planning assumptions (roof area per kW,
-average generation per kW, average domestic tariff) — not a formal
+average generation per kW, average domestic tariff), not a formal
 survey. Real sizing should always be confirmed on-site.
 
 The subsidy shown now has two parts, both residential-only:
 - **Central subsidy (PM Surya Ghar)**: ₹30,000/kW for the first 2kW,
-  ₹18,000 for the 3rd kW, capped at ₹78,000 total — set in
+  ₹18,000 for the 3rd kW, capped at ₹78,000 total, set in
   `calcCentralSubsidy()` in `js/calculator.js`.
 - **Uttar Pradesh state top-up (UPNEDA)**: ₹15,000/kW, capped at
-  ₹30,000 per household — set in `calcUPTopUp()` in the same file.
+  ₹30,000 per household, set in `calcUPTopUp()` in the same file.
   This is subject to current UPNEDA budget allocation and can change;
   the page already carries a disclaimer about this next to the result.
 
 Combined, a UP resident installing 3kW+ can see up to ₹1,08,000 in
 total subsidy (₹78,000 + ₹30,000), which is what the calculator now
 shows. If either scheme's numbers change, update the two functions
-above — nothing else needs to change.
+above, nothing else needs to change.
 
 ## Security measures already built in
 - Contact form: Netlify's built-in spam filtering + a honeypot field
 - Testimonial form: honeypot field, 60-second client-side rate limit,
   file type/size validation on photo uploads
-- Testimonials never go live automatically — always sit in "pending"
+- Testimonials never go live automatically, always sit in "pending"
   until you approve them in `/admin.html`
 - Admin login uses real password authentication (Supabase Auth), not a
   hidden URL

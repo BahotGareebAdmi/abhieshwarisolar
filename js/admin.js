@@ -1,5 +1,5 @@
 // ============================================================
-// Admin panel — password-protected via Supabase Auth
+// Admin panel: password-protected via Supabase Auth
 // Only you (the account you create in Supabase) can log in.
 // ============================================================
 

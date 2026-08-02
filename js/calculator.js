@@ -1,6 +1,6 @@
 // ============================================================
 // Solar need calculator
-// Assumptions are shown to the user in the note box — these are
+// Assumptions are shown to the user in the note box: these are
 // planning estimates, not a formal site-survey quotation.
 // ============================================================
 
@@ -10,7 +10,7 @@ function fmtINR(n) {
   return '₹' + Math.round(n).toLocaleString('en-IN');
 }
 
-// Central PM Surya Ghar subsidy — ₹30,000/kW for first 2kW, ₹18,000 for 3rd kW, capped ₹78,000
+// Central PM Surya Ghar subsidy: ₹30,000/kW for first 2kW, ₹18,000 for 3rd kW, capped ₹78,000
 function calcCentralSubsidy(kw) {
   if (kw <= 0) return 0;
   if (kw <= 1) return 30000 * kw;
@@ -19,8 +19,8 @@ function calcCentralSubsidy(kw) {
   return Math.min(60000 + extra * 18000, 78000);
 }
 
-// Uttar Pradesh state top-up via UPNEDA — ₹15,000/kW, capped at ₹30,000 per household
-// This state top-up is subject to current UPNEDA budget allocation — verify before quoting.
+// Uttar Pradesh state top-up via UPNEDA: ₹15,000/kW, capped at ₹30,000 per household
+// This state top-up is subject to current UPNEDA budget allocation: verify before quoting.
 function calcUPTopUp(kw) {
   if (kw <= 0) return 0;
   return Math.min(15000 * kw, 30000);
@@ -76,7 +76,7 @@ function calculate() {
 
   document.getElementById('resNet').textContent = fmtINR(netCost) + (subsidyEligible && wantSubsidy ? t('calc.js.afterSubsidy') : '');
   document.getElementById('resSavings').textContent = fmtINR(monthlySavings) + t('calc.js.perMonthApprox');
-  document.getElementById('resPayback').textContent = paybackYears > 0 ? paybackYears.toFixed(1) + t('calc.js.years') : '—';
+  document.getElementById('resPayback').textContent = paybackYears > 0 ? paybackYears.toFixed(1) + t('calc.js.years') : 'N/A';
 
   document.getElementById('subsidyNote').style.display = subsidyEligible ? 'none' : 'block';
 

@@ -1,4 +1,4 @@
-# CLAUDE.md — Abhieshwari Solar
+# CLAUDE.md, Abhieshwari Solar
 
 Project guide for Claude. Read this before making changes.
 
@@ -14,7 +14,7 @@ tool, bundler, or framework.
 
 - Live site: <https://abhieshwarisolar.in>
 - Contact: +91 90265 73953 · info@abhieshwarisolar.in
-- GSTIN `09FBJPR0315E1ZQ` is intentionally hidden site-wide — it is commented
+- GSTIN `09FBJPR0315E1ZQ` is intentionally hidden site-wide, it is commented
   out in the HTML near each occurrence. Leave it commented unless asked.
 
 ## ⚠️ This repo deploys straight to production
@@ -43,7 +43,7 @@ faq.html                FAQs
 contact.html            Contact form (Supabase-backed)
 guides.html             Hub page linking all 9 guide articles
 guide-*.html            9 long-form guide articles
-admin.html              Admin panel (Supabase Auth) — noindex
+admin.html              Admin panel (Supabase Auth), noindex
 privacy-policy.html     Privacy policy
 thanks.html             Post-submit thank-you page
 css/                    Stylesheets
@@ -61,7 +61,7 @@ llms.txt                Plain-markdown site summary for AI crawlers
 - **Bilingual**: UI strings are translated via `js/i18n.js` using `data-i18n`
   attributes, persisted to localStorage. If you add user-facing text, add both
   the English and Hindi entries to the dictionary in `js/i18n.js`.
-- **Structured data matters** — the site is tuned for SEO and AI answer
+- **Structured data matters**, the site is tuned for SEO and AI answer
   engines. Keep the existing JSON-LD (`LocalBusiness`, `FAQPage`, `Article`,
   `BreadcrumbList`, `HowTo`, `VideoObject`). New guide articles need `Article`
   + `BreadcrumbList` schema.
@@ -75,8 +75,8 @@ llms.txt                Plain-markdown site summary for AI crawlers
 Supabase (browser-side, anon key in `js/config.js`, RLS-protected). Two
 features use it:
 
-- **Testimonials** — public submit, approved via `admin.html`
-- **Contact form leads** — `contact_submissions` table, shown under "Leads"
+- **Testimonials**, public submit, approved via `admin.html`
+- **Contact form leads**, `contact_submissions` table, shown under "Leads"
   in `admin.html` (`js/admin.js`: `loadLeads`, `handleLeadAction`)
 
 There is no server. Do not add one.
@@ -93,7 +93,7 @@ decommissioned).
   `www.abhieshwarisolar.in/*`. If the live site ever breaks, check
   **Cloudflare → Workers Routes first**, not DNS records.
 - Email DNS (MX/SPF/DMARC/Hostinger mail CNAMEs) and the
-  `google-site-verification` TXT record must be preserved — never remove them.
+  `google-site-verification` TXT record must be preserved, never remove them.
 
 ## Mobile workflow (@claude from a phone)
 
@@ -111,7 +111,7 @@ Setup, done once:
 
 - Confirm the `contact_submissions` table + RLS policies exist in Supabase
   (SQL is in `README.md`, Step 2.3). Until that runs, the contact form fails
-  with an error toast — check this first if the form is reported broken.
+  with an error toast, check this first if the form is reported broken.
 - AdSense was showing a "Low value content" rejection as of 2026-08-02 despite
   9 substantial guide articles; needs "I confirm I have fixed the issues" +
   "Request review" clicked in the AdSense dashboard.

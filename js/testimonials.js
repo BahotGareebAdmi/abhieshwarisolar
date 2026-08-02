@@ -1,5 +1,5 @@
 // ============================================================
-// Testimonials — public page
+// Testimonials: public page
 // Requires Supabase project set up per README.md
 // ============================================================
 
@@ -84,7 +84,7 @@ async function handleTestimonialSubmit(e) {
 
   const client = getClient();
   if (!client) {
-    showToast('Backend not connected yet — see README.md.');
+    showToast('Backend not connected yet, see README.md.');
     return;
   }
 

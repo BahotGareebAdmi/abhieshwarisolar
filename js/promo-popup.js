@@ -1,5 +1,5 @@
 // ============================================================
-// Offer popup — opens only when the visitor taps the floating
+// Offer popup: opens only when the visitor taps the floating
 // offer badge. No auto-trigger: avoids being an intrusive
 // interstitial on load or scroll.
 // ============================================================

@@ -1,5 +1,5 @@
 // ============================================================
-// Contact form — submits directly to Supabase (contact_submissions table)
+// Contact form: submits directly to Supabase (contact_submissions table)
 // Requires the same Supabase project used for testimonials (js/config.js)
 // ============================================================
 
@@ -28,7 +28,7 @@ async function handleContactSubmit(e) {
 
   const client = getContactClient();
   if (!client) {
-    showToast('Form backend not connected yet — see README.md.');
+    showToast('Form backend not connected yet, see README.md.');
     return;
   }
 
@@ -55,7 +55,7 @@ async function handleContactSubmit(e) {
     localStorage.setItem('as-contact-last', String(Date.now()));
     window.location.href = 'thanks.html';
   } catch (err) {
-    showToast(err.message || 'Something went wrong — please try again or call us directly.');
+    showToast(err.message || 'Something went wrong, please try again or call us directly.');
     submitBtn.disabled = false;
     submitBtn.textContent = 'Request a free site visit';
   }
