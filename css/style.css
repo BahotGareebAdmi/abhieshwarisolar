@@ -63,7 +63,7 @@ img{ max-width:100%; display:block; }
 .eyebrow{
   display:inline-flex; align-items:center; gap:8px;
   font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--green); font-weight:600;
+  color:var(--green-dark); font-weight:600;
 }
 html[data-theme="dark"] .eyebrow{ color:#6FD9A5; }
 
@@ -113,7 +113,7 @@ header.site{
 }
 .brand .sub{
   font-size:.66rem; letter-spacing:.12em; text-transform:uppercase;
-  color:var(--green); font-weight:700;
+  color:var(--green-dark); font-weight:700;
 }
 html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
 .navlinks{ display:flex; align-items:center; gap:26px; list-style:none; margin:0; padding:0; }
@@ -203,7 +203,7 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
 .footer-social svg{ width:18px; height:18px; }
 
 .consent-note{ font-size:.78rem; color:var(--text-soft); text-align:center; margin-top:10px; }
-.consent-note a{ color:var(--green); font-weight:600; text-decoration:underline; }
+.consent-note a{ color:var(--green-dark); font-weight:600; text-decoration:underline; }
 html[data-theme="dark"] .consent-note a{ color:#6FD9A5; }
 
 /* EMI highlight badge */
@@ -328,13 +328,13 @@ input[type="range"]::-moz-range-thumb{
   border:1.5px solid var(--border); border-radius:12px; padding:14px 8px; text-align:center; cursor:pointer;
   background:var(--bg-elev); font-size:.85rem; font-weight:600;
 }
-.tile.active{ border-color:var(--green); background:color-mix(in srgb, var(--green) 12%, transparent); color:var(--green); }
+.tile.active{ border-color:var(--green); background:color-mix(in srgb, var(--green) 12%, transparent); color:var(--green-dark); }
 html[data-theme="dark"] .tile.active{ color:#6FD9A5; }
 .range-row{ display:flex; justify-content:space-between; font-size:.82rem; color:var(--text-soft); margin-top:6px; }
 .note-box{
   border:1px dashed var(--border); border-radius:12px; padding:14px 16px; font-size:.85rem; color:var(--text-soft); margin-top:18px;
 }
-.note-box a{ color:var(--green); font-weight:600; text-decoration:underline; }
+.note-box a{ color:var(--green-dark); font-weight:600; text-decoration:underline; }
 html[data-theme="dark"] .note-box a{ color:#6FD9A5; }
 
 /* Testimonials */
@@ -370,7 +370,7 @@ html[data-theme="dark"] .brand-card.brand-best{ border-color:#6FD9A5; }
 .brand-card-name{ font-family:'Fraunces', serif; font-size:1.15rem; font-weight:600; }
 .brand-badge{
   font-size:.68rem; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap;
-  background:color-mix(in srgb, var(--green) 16%, transparent); color:var(--green);
+  background:color-mix(in srgb, var(--green) 16%, transparent); color:var(--green-dark);
 }
 html[data-theme="dark"] .brand-badge{ color:#6FD9A5; }
 .brand-card-row{ display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border); font-size:.86rem; }
@@ -385,7 +385,7 @@ html[data-theme="dark"] .brand-card-net{ color:#6FD9A5; }
 .brand-dot.active{ background:var(--green); transform:scale(1.3); }
 html[data-theme="dark"] .brand-dot.active{ background:#6FD9A5; }
 .brand-disclaimer{ font-size:.78rem; color:var(--text-soft); text-align:center; margin-top:14px; max-width:640px; margin-left:auto; margin-right:auto; }
-.brand-disclaimer a{ color:var(--green); font-weight:600; text-decoration:underline; }
+.brand-disclaimer a{ color:var(--green-dark); font-weight:600; text-decoration:underline; }
 html[data-theme="dark"] .brand-disclaimer a{ color:#6FD9A5; }
 
 .testi-stars{ color:var(--gold); font-size:1rem; letter-spacing:2px; margin-bottom:10px; }
@@ -394,7 +394,7 @@ html[data-theme="dark"] .brand-disclaimer a{ color:#6FD9A5; }
   color:var(--text-soft); margin-top:10px;
 }
 .testi-translated{ font-size:.76rem; color:var(--text-soft); font-style:italic; margin-top:8px; }
-.google-link{ font-weight:700; color:var(--green); text-decoration:underline; }
+.google-link{ font-weight:700; color:var(--green-dark); text-decoration:underline; }
 html[data-theme="dark"] .google-link{ color:#6FD9A5; }
 
 .status-pill{ display:inline-block; padding:4px 10px; border-radius:999px; font-size:.72rem; font-weight:700; }
