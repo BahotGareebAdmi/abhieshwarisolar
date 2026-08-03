@@ -4,8 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Solar Installation Services - Home, Shop, Office, Factory | Abhieshwari Solar</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/logo-192.png">
 <meta name="description" content="Solar panel installation services for homes, shops, offices and factories in Gorakhpur. Free site visit, high-quality panels, expert installation team, subsidy assistance.">
 <link rel="canonical" href="https://abhieshwarisolar.in/services.html">
+<meta property="og:image" content="https://abhieshwarisolar.in/assets/logo.png">
+<meta name="twitter:image" content="https://abhieshwarisolar.in/assets/logo.png">
 <meta property="og:title" content="Solar Installation Services - Home, Shop, Office, Factory | Abhieshwari Solar">
 <meta property="og:description" content="Solar panel installation services for homes, shops, offices and factories in Gorakhpur. Free site visit, high-quality panels, expert installation team, subsidy assistance.">
 <meta property="og:type" content="website">
@@ -28,16 +32,33 @@
   "@context": "https://schema.org",
   "@type": "Service",
   "serviceType": "Rooftop solar panel installation",
-  "provider": { "@type": "LocalBusiness", "name": "Abhieshwari Solar", "telephone": "+91-90265-73953" },
-  "areaServed": "Gorakhpur and nearby areas",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Abhieshwari Solar",
+    "telephone": "+91-90265-73953",
+    "image": "https://abhieshwarisolar.in/assets/logo.png",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "EWS-41, Janpriya Vihar Colony, Humayunpur North, Gorakhnath",
+      "addressLocality": "Gorakhpur",
+      "addressRegion": "Uttar Pradesh",
+      "postalCode": "273015",
+      "addressCountry": "IN"
+    }
+  },
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 26.7606, "longitude": 83.3732 },
+    "geoRadius": "40000"
+  },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Solar installation services",
     "itemListElement": [
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Residential rooftop solar" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Shop & small commercial solar" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Office building solar" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Factory & industrial solar" } }
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Residential rooftop solar", "description": "Rooftop solar installation for homes, sized to your electricity bill and roof, with PM Surya Ghar and UPNEDA subsidy assistance included." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Shop & small commercial solar", "description": "Solar installation for shops and small retail spaces to reduce daytime electricity costs." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Office building solar", "description": "Rooftop solar for offices, sized for weekday commercial load and net metering." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Factory & industrial solar", "description": "Higher-capacity solar installation for factories and industrial units, including load assessment and ROI analysis." } }
     ]
   }
 }
