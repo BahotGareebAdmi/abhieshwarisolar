@@ -164,8 +164,6 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
 }
 .bottom-tabs a:active, .bottom-tabs button:active{ transform:scale(.92); }
 .bottom-tabs svg{ width:22px; height:22px; }
-.bottom-tabs a.tab-active{ color:var(--gold); }
-.bottom-tabs a.tab-active svg{ stroke:var(--gold); }
 
 /* "More" bottom sheet: secondary links, slides up from the bottom
    instead of a full drawer. Same reliable open/close pattern as the

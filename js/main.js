@@ -78,14 +78,22 @@
     }
 
     // mark active nav link
-    const path = location.pathname.split('/').pop() || 'index.html';
+    // Normalized so this works whether the URL includes ".html" or not
+    // (some hosting setups serve clean URLs without the extension).
+    function normalizePage(p) {
+      if (!p) return 'index';
+      return p.replace(/\.html$/, '') || 'index';
+    }
+    const rawSegment = location.pathname.split('/').pop();
+    const path = normalizePage(rawSegment);
+
     document.querySelectorAll('.navlinks a[data-page]').forEach(a => {
-      if (a.getAttribute('data-page') === path) a.classList.add('active');
+      if (normalizePage(a.getAttribute('data-page')) === path) a.classList.add('active');
     });
 
     // Bottom tab bar: mark the active tab
     document.querySelectorAll('.bottom-tabs a[data-page]').forEach(a => {
-      if (a.getAttribute('data-page') === path) a.classList.add('tab-active');
+      if (normalizePage(a.getAttribute('data-page')) === path) a.classList.add('tab-active');
     });
 
     // "More" bottom sheet: opens from the bottom tab bar, closes on
@@ -94,7 +102,7 @@
     const moreBackdrop = document.getElementById('moreSheetBackdrop');
     if (moreBtn && moreBackdrop) {
       document.querySelectorAll('.more-sheet a[data-page]').forEach(a => {
-        if (a.getAttribute('data-page') === path) a.classList.add('active');
+        if (normalizePage(a.getAttribute('data-page')) === path) a.classList.add('active');
       });
 
       function openMore() {

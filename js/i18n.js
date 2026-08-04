@@ -15,7 +15,7 @@ const I18N = {
     'nav.faq': 'FAQs',
     'nav.guides': 'Guides',
     'nav.contact': 'Contact',
-    'nav.brandSub': 'Solar Energy Solutions',
+    'nav.brandSub': 'Enterprises and Developers',
     'nav.freeVisit': 'Free Site Visit',
 
     'footer.tagline': 'M/s Abhieshwari Enterprises and Developers, solar panel installation across Gorakhpur and nearby areas.',
@@ -290,7 +290,7 @@ const I18N = {
     'nav.faq': 'सामान्य प्रश्न',
     'nav.guides': 'गाइड्स',
     'nav.contact': 'संपर्क करें',
-    'nav.brandSub': 'सोलर ऊर्जा समाधान',
+    'nav.brandSub': 'एंटरप्राइजेज एंड डेवलपर्स',
     'nav.freeVisit': 'मुफ़्त साइट विज़िट',
 
     'footer.tagline': 'मेसर्स अभीश्वरी एंटरप्राइजेज एंड डेवलपर्स, गोरखपुर और आसपास के क्षेत्रों में सोलर पैनल इंस्टॉलेशन।',
