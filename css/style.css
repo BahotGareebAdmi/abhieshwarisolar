@@ -160,10 +160,15 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
   flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
   padding:6px 2px; color:var(--text-soft); text-decoration:none; background:none; border:none;
   cursor:pointer; font-family:inherit; font-size:.64rem; font-weight:600; letter-spacing:.01em;
-  transition:color .2s var(--ease-out), transform .2s var(--ease-spring);
 }
 .bottom-tabs a:active, .bottom-tabs button:active{ transform:scale(.92); }
-.bottom-tabs svg{ width:22px; height:22px; }
+.bottom-tabs .tab-icon{
+  display:flex; align-items:center; justify-content:center;
+  width:40px; height:26px; border-radius:13px;
+  transition:background-color .25s var(--ease-out), transform .2s var(--ease-spring);
+}
+.bottom-tabs svg{ width:20px; height:20px; transition:stroke .2s var(--ease-out), fill .2s var(--ease-out); }
+.bottom-tabs .tab-label{ transition:color .2s var(--ease-out); }
 
 /* "More" bottom sheet: secondary links, slides up from the bottom
    instead of a full drawer. Same reliable open/close pattern as the
@@ -199,28 +204,36 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
   .lang-toggle{ padding:0 8px; font-size:.76rem; }
 }
 
-/* Distinct per-tab colors so each destination has its own visual
-   identity when active, giving a clearer sense of having switched
-   sections rather than a single uniform highlight color. */
-.bottom-tabs a[data-page="index.html"].tab-active{ color:var(--gold); }
-.bottom-tabs a[data-page="index.html"].tab-active svg{ stroke:var(--gold); }
-.bottom-tabs a[data-page="guides.html"].tab-active{ color:var(--green-dark); }
-.bottom-tabs a[data-page="guides.html"].tab-active svg{ stroke:var(--green-dark); }
-.bottom-tabs a[data-page="calculator.html"].tab-active{ color:var(--navy); }
-.bottom-tabs a[data-page="calculator.html"].tab-active svg{ stroke:var(--navy); }
-html[data-theme="dark"] .bottom-tabs a[data-page="guides.html"].tab-active{ color:#6FD9A5; }
-html[data-theme="dark"] .bottom-tabs a[data-page="guides.html"].tab-active svg{ stroke:#6FD9A5; }
-html[data-theme="dark"] .bottom-tabs a[data-page="calculator.html"].tab-active{ color:#6FB4FF; }
-html[data-theme="dark"] .bottom-tabs a[data-page="calculator.html"].tab-active svg{ stroke:#6FB4FF; }
+/* Distinct filled pill per destination when active: a solid colored
+   background behind the icon (white icon on top), plus a bold colored
+   label underneath. Deliberately bold/high-contrast so it's obvious
+   at a glance which tab you're on, not just a subtle text tint. */
+.bottom-tabs a[data-page="index.html"].tab-active .tab-icon{ background:var(--gold); }
+.bottom-tabs a[data-page="index.html"].tab-active svg{ stroke:#fff; }
+.bottom-tabs a[data-page="index.html"].tab-active .tab-label{ color:var(--gold); font-weight:700; }
 
-/* WhatsApp tab always carries its brand color, at rest, not just when active,
-   since it's an action (opens WhatsApp) rather than a "current page" state. */
-.bottom-tabs .tab-whatsapp{ color:#25D366; }
-.bottom-tabs .tab-whatsapp svg{ fill:#25D366; stroke:none; }
+.bottom-tabs a[data-page="guides.html"].tab-active .tab-icon{ background:var(--green-dark); }
+.bottom-tabs a[data-page="guides.html"].tab-active svg{ stroke:#fff; }
+.bottom-tabs a[data-page="guides.html"].tab-active .tab-label{ color:var(--green-dark); font-weight:700; }
 
-/* More tab tints while its sheet is open, for the same reason. */
-#moreTabBtn.tab-open{ color:var(--navy); }
-html[data-theme="dark"] #moreTabBtn.tab-open{ color:#8FD1FF; }
+.bottom-tabs a[data-page="calculator.html"].tab-active .tab-icon{ background:var(--navy); }
+.bottom-tabs a[data-page="calculator.html"].tab-active svg{ stroke:#fff; }
+.bottom-tabs a[data-page="calculator.html"].tab-active .tab-label{ color:var(--navy); font-weight:700; }
+
+html[data-theme="dark"] .bottom-tabs a[data-page="guides.html"].tab-active .tab-label{ color:#6FD9A5; }
+html[data-theme="dark"] .bottom-tabs a[data-page="calculator.html"].tab-active .tab-label{ color:#6FB4FF; }
+
+/* WhatsApp tab: always a filled green pill, not just on "active",
+   since it's an action (opens WhatsApp) rather than a current-page state. */
+.bottom-tabs .tab-whatsapp .tab-icon{ background:#25D366; }
+.bottom-tabs .tab-whatsapp svg{ fill:#fff; stroke:none; }
+.bottom-tabs .tab-whatsapp .tab-label{ color:#25D366; font-weight:700; }
+
+/* More tab: filled pill while its sheet is open. */
+#moreTabBtn.tab-open .tab-icon{ background:var(--navy); }
+#moreTabBtn.tab-open svg{ stroke:#fff; }
+#moreTabBtn.tab-open .tab-label{ color:var(--navy); font-weight:700; }
+html[data-theme="dark"] #moreTabBtn.tab-open .tab-label{ color:#8FD1FF; }
 
 /* Footer social icons */
 .footer-social{ display:flex; gap:10px; margin-top:14px; }
