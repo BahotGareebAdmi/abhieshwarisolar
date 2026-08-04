@@ -108,16 +108,17 @@ header.site{
   .nav{ padding:18px 20px; }
   .navlinks{ gap:34px; }
 }
-.brand{ display:flex; align-items:baseline; gap:10px; text-decoration:none; }
+.brand{ display:flex; flex-direction:column; align-items:flex-start; gap:1px; text-decoration:none; }
 .brand .word{
   font-family:'Berkshire Swash', cursive;
   font-size:1.7rem;
   background:linear-gradient(100deg, var(--navy), var(--green));
   -webkit-background-clip:text; background-clip:text; color:transparent;
+  line-height:1.1;
 }
 .brand .sub{
-  font-size:.66rem; letter-spacing:.12em; text-transform:uppercase;
-  color:var(--green-dark); font-weight:700;
+  font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--green-dark); font-weight:700; white-space:nowrap;
 }
 html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
 .navlinks{ display:flex; align-items:center; gap:26px; list-style:none; margin:0; padding:0; }
@@ -195,9 +196,8 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
 @media (prefers-reduced-motion: reduce){
   .more-sheet, .more-sheet-backdrop{ transition:none; }
 }
-@media (max-width:880px){
-  .brand{ flex-direction:column; align-items:flex-start; gap:1px; }
-  .brand .sub{ font-size:.58rem; }
+@media (max-width:480px){
+  .brand .sub{ font-size:.56rem; }
 }
 @media (max-width:480px){
   .navactions{ gap:6px; }
