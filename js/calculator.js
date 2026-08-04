@@ -135,8 +135,8 @@ function renderBrandCompare(kw, costLow, costHigh, subsidy) {
     return `
       <div class="brand-card${b.best ? ' brand-best' : ''}" data-index="${i}">
         <div class="brand-card-top">
-          <span class="brand-card-name">${b.name}</span>
           ${b.best ? `<span class="brand-badge">${t('calc.brand.bestDiscount')}</span>` : ''}
+          <span class="brand-card-name">${b.name}</span>
         </div>
         <div class="brand-card-row"><span>${t('calc.brand.systemCost')}</span><span>${fmtINR(bLow)} – ${fmtINR(bHigh)}</span></div>
         <div class="brand-card-row"><span>${t('calc.brand.warranty')}</span><span>${t(b.warrantyKey)}</span></div>
