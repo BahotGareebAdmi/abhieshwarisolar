@@ -132,41 +132,65 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
 .lang-toggle{ width:auto; padding:0 12px; font-weight:700; font-size:.82rem; }
 .hamburger{ display:none; }
 @media (max-width:880px){
-  body::before{
-    content:''; position:fixed; inset:0; background:rgba(8,20,32,0.55);
-    opacity:0; pointer-events:none; transition:opacity .3s var(--ease-out); z-index:55;
-  }
-  body.nav-open::before{ opacity:1; pointer-events:auto; }
-  .navlinks{
-    position:fixed; top:0; right:0; bottom:0; left:auto;
-    width:min(84vw, 340px);
-    background:var(--bg); flex-direction:column;
-    padding:calc(var(--header-h, 64px) + 12px) 22px 30px; gap:0;
-    transform:translateX(100%); transition:transform .38s var(--ease-out);
-    border-left:1px solid var(--border); z-index:60; overflow-y:auto;
-    box-shadow:-16px 0 40px -12px rgba(0,0,0,0.35);
-    border-radius:18px 0 0 18px;
-  }
-  .navlinks.open{ transform:translateX(0); }
-  .navlinks li{ border-bottom:1px solid var(--border); opacity:0; transform:translateX(14px); transition:opacity .3s var(--ease-out), transform .3s var(--ease-out); }
-  .navlinks.open li{ opacity:1; transform:translateX(0); }
-  .navlinks.open li:nth-child(1){ transition-delay:.05s; }
-  .navlinks.open li:nth-child(2){ transition-delay:.09s; }
-  .navlinks.open li:nth-child(3){ transition-delay:.13s; }
-  .navlinks.open li:nth-child(4){ transition-delay:.17s; }
-  .navlinks.open li:nth-child(5){ transition-delay:.21s; }
-  .navlinks.open li:nth-child(6){ transition-delay:.25s; }
-  .navlinks.open li:nth-child(7){ transition-delay:.29s; }
-  .navlinks.open li:nth-child(8){ transition-delay:.33s; }
-  .navlinks li:last-child{ border-bottom:none; }
-  .navlinks a{ font-size:1.08rem; display:block; padding:16px 2px; }
-  .navlinks a.active{ color:var(--gold); font-weight:700; }
-  .hamburger{ display:flex; }
+  /* Primary mobile nav is now the fixed bottom tab bar (see .bottom-tabs
+     below), not a hamburger drawer. The old top nav links are hidden on
+     mobile; the hamburger button is hidden too. */
+  .navlinks{ display:none; }
+  .hamburger{ display:none; }
   .nav .btn-primary.desktop-only{ display:none; }
-  body.nav-open{ overflow:hidden; }
+  body{ padding-bottom:70px; }
 }
+@media (min-width:881px){
+  .bottom-tabs, .more-sheet-backdrop{ display:none !important; }
+}
+
+/* ============================================================
+   Bottom tab bar (mobile only): persistent, app-style primary
+   navigation. Stays fixed while page content scrolls beneath it,
+   mirroring familiar app patterns (Flipkart, etc.) rather than
+   an off-canvas drawer.
+   ============================================================ */
+.bottom-tabs{
+  display:flex; position:fixed; left:0; right:0; bottom:0; z-index:80;
+  background:var(--bg-elev); border-top:1px solid var(--border);
+  padding:6px 2px calc(6px + env(safe-area-inset-bottom, 0px));
+  box-shadow:0 -10px 26px -14px rgba(0,0,0,0.22);
+}
+.bottom-tabs a, .bottom-tabs button{
+  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+  padding:6px 2px; color:var(--text-soft); text-decoration:none; background:none; border:none;
+  cursor:pointer; font-family:inherit; font-size:.64rem; font-weight:600; letter-spacing:.01em;
+  transition:color .2s var(--ease-out), transform .2s var(--ease-spring);
+}
+.bottom-tabs a:active, .bottom-tabs button:active{ transform:scale(.92); }
+.bottom-tabs svg{ width:22px; height:22px; }
+.bottom-tabs a.tab-active{ color:var(--gold); }
+.bottom-tabs a.tab-active svg{ stroke:var(--gold); }
+
+/* "More" bottom sheet: secondary links, slides up from the bottom
+   instead of a full drawer. Same reliable open/close pattern as the
+   promo modal (focus handling, backdrop, Escape). */
+.more-sheet-backdrop{
+  position:fixed; inset:0; z-index:90; background:rgba(8,20,32,0.5);
+  opacity:0; pointer-events:none; transition:opacity .3s var(--ease-out);
+}
+.more-sheet-backdrop.open{ opacity:1; pointer-events:auto; }
+.more-sheet{
+  position:fixed; left:0; right:0; bottom:0; z-index:91;
+  background:var(--bg); border-radius:20px 20px 0 0;
+  padding:10px 22px calc(20px + env(safe-area-inset-bottom, 0px));
+  transform:translateY(100%); transition:transform .35s var(--ease-out);
+  box-shadow:0 -20px 44px -14px rgba(0,0,0,0.35);
+  max-height:75vh; overflow-y:auto;
+}
+.more-sheet-backdrop.open .more-sheet{ transform:translateY(0); }
+.more-sheet-handle{ width:40px; height:4px; border-radius:99px; background:var(--border); margin:6px auto 14px; }
+.more-sheet a{ display:block; padding:15px 2px; font-size:1.03rem; color:var(--text); text-decoration:none; border-bottom:1px solid var(--border); }
+.more-sheet a:last-of-type{ border-bottom:none; }
+.more-sheet a.active{ color:var(--gold); font-weight:700; }
+
 @media (prefers-reduced-motion: reduce){
-  .navlinks li{ opacity:1; transform:none; transition:none; }
+  .more-sheet, .more-sheet-backdrop{ transition:none; }
 }
 @media (max-width:480px){
   .brand .sub{ display:none; }
@@ -216,6 +240,10 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
 }
 .whatsapp-float:hover{ transform:scale(1.06); }
 .whatsapp-float svg{ width:30px; height:30px; }
+@media (max-width:880px){
+  .promo-badge{ bottom:calc(160px + env(safe-area-inset-bottom, 0px)); }
+  .whatsapp-float{ bottom:calc(92px + env(safe-area-inset-bottom, 0px)); }
+}
 
 /* Footer social icons */
 .footer-social{ display:flex; gap:10px; margin-top:14px; }

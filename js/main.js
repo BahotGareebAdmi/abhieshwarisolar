@@ -82,6 +82,44 @@
     document.querySelectorAll('.navlinks a[data-page]').forEach(a => {
       if (a.getAttribute('data-page') === path) a.classList.add('active');
     });
+
+    // Bottom tab bar: mark the active tab
+    document.querySelectorAll('.bottom-tabs a[data-page]').forEach(a => {
+      if (a.getAttribute('data-page') === path) a.classList.add('tab-active');
+    });
+
+    // "More" bottom sheet: opens from the bottom tab bar, closes on
+    // backdrop click, Escape, or tapping any link inside it.
+    const moreBtn = document.getElementById('moreTabBtn');
+    const moreBackdrop = document.getElementById('moreSheetBackdrop');
+    if (moreBtn && moreBackdrop) {
+      document.querySelectorAll('.more-sheet a[data-page]').forEach(a => {
+        if (a.getAttribute('data-page') === path) a.classList.add('active');
+      });
+
+      function openMore() {
+        moreBackdrop.hidden = false;
+        requestAnimationFrame(() => moreBackdrop.classList.add('open'));
+        moreBtn.setAttribute('aria-expanded', 'true');
+      }
+      function closeMore() {
+        moreBackdrop.classList.remove('open');
+        moreBtn.setAttribute('aria-expanded', 'false');
+        setTimeout(() => { moreBackdrop.hidden = true; }, 350);
+      }
+
+      moreBtn.addEventListener('click', () => {
+        const isOpen = moreBackdrop.classList.contains('open');
+        isOpen ? closeMore() : openMore();
+      });
+      moreBackdrop.addEventListener('click', (e) => {
+        if (e.target === moreBackdrop) closeMore();
+      });
+      moreBackdrop.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMore));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && moreBackdrop.classList.contains('open')) closeMore();
+      });
+    }
   });
 })();
 
