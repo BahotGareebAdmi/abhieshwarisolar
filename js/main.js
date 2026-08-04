@@ -101,10 +101,12 @@
         moreBackdrop.hidden = false;
         requestAnimationFrame(() => moreBackdrop.classList.add('open'));
         moreBtn.setAttribute('aria-expanded', 'true');
+        moreBtn.classList.add('tab-open');
       }
       function closeMore() {
         moreBackdrop.classList.remove('open');
         moreBtn.setAttribute('aria-expanded', 'false');
+        moreBtn.classList.remove('tab-open');
         setTimeout(() => { moreBackdrop.hidden = true; }, 350);
       }
 

@@ -192,58 +192,37 @@ html[data-theme="dark"] .brand .sub{ color:#6FD9A5; }
 @media (prefers-reduced-motion: reduce){
   .more-sheet, .more-sheet-backdrop{ transition:none; }
 }
+@media (max-width:880px){
+  .brand{ flex-direction:column; align-items:flex-start; gap:1px; }
+  .brand .sub{ font-size:.58rem; }
+}
 @media (max-width:480px){
-  .brand .sub{ display:none; }
   .navactions{ gap:6px; }
   .lang-toggle{ padding:0 8px; font-size:.76rem; }
 }
 
-/* Promo popup modal (offer, click-through to WhatsApp) */
-.promo-modal-backdrop{
-  position:fixed; inset:0; z-index:300; background:rgba(8,15,24,0.55);
-  display:flex; align-items:center; justify-content:center; padding:20px;
-  animation:promoFadeIn .25s ease;
-}
-.promo-modal-backdrop[hidden]{ display:none; }
-@keyframes promoFadeIn{ from{ opacity:0; } to{ opacity:1; } }
-.promo-modal{
-  position:relative; max-width:380px; width:100%; background:var(--bg-elev); border-radius:20px;
-  padding:34px 28px 28px; text-align:center; box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
-  animation:promoPopIn .3s ease;
-}
-@keyframes promoPopIn{ from{ opacity:0; transform:scale(.92) translateY(8px); } to{ opacity:1; transform:scale(1) translateY(0); } }
-.promo-modal-emoji{ font-size:2.6rem; margin-bottom:6px; }
-.promo-modal h3{ font-size:1.25rem; margin-bottom:10px; }
-.promo-modal p{ margin-bottom:22px; }
-.promo-modal .btn{ width:100%; background:#25D366; border-color:#25D366; }
-.promo-modal .btn:hover{ background:#1EBE5A; }
-.promo-modal-close{
-  position:absolute; top:12px; right:12px; width:32px; height:32px; border-radius:50%;
-  border:1px solid var(--border); background:var(--bg); color:var(--text); cursor:pointer;
-  font-size:1.2rem; line-height:1; display:flex; align-items:center; justify-content:center;
-}
+/* Distinct per-tab colors so each destination has its own visual
+   identity when active, giving a clearer sense of having switched
+   sections rather than a single uniform highlight color. */
+.bottom-tabs a[data-page="index.html"].tab-active{ color:var(--gold); }
+.bottom-tabs a[data-page="index.html"].tab-active svg{ stroke:var(--gold); }
+.bottom-tabs a[data-page="guides.html"].tab-active{ color:var(--green-dark); }
+.bottom-tabs a[data-page="guides.html"].tab-active svg{ stroke:var(--green-dark); }
+.bottom-tabs a[data-page="calculator.html"].tab-active{ color:var(--navy); }
+.bottom-tabs a[data-page="calculator.html"].tab-active svg{ stroke:var(--navy); }
+html[data-theme="dark"] .bottom-tabs a[data-page="guides.html"].tab-active{ color:#6FD9A5; }
+html[data-theme="dark"] .bottom-tabs a[data-page="guides.html"].tab-active svg{ stroke:#6FD9A5; }
+html[data-theme="dark"] .bottom-tabs a[data-page="calculator.html"].tab-active{ color:#6FB4FF; }
+html[data-theme="dark"] .bottom-tabs a[data-page="calculator.html"].tab-active svg{ stroke:#6FB4FF; }
 
-/* Floating offer badge (opens the promo modal on tap) */
-.promo-badge{
-  position:fixed; bottom:90px; right:22px; z-index:140; border:none; cursor:pointer;
-  background:var(--gold); color:#fff; padding:10px 16px; border-radius:999px;
-  font-weight:700; font-size:.82rem; display:flex; align-items:center; gap:6px;
-  box-shadow:0 8px 20px -6px rgba(0,0,0,0.4); font-family:inherit;
-}
-.promo-badge:hover{ background:var(--gold-dark); }
+/* WhatsApp tab always carries its brand color, at rest, not just when active,
+   since it's an action (opens WhatsApp) rather than a "current page" state. */
+.bottom-tabs .tab-whatsapp{ color:#25D366; }
+.bottom-tabs .tab-whatsapp svg{ fill:#25D366; stroke:none; }
 
-/* Floating WhatsApp button */
-.whatsapp-float{
-  position:fixed; bottom:22px; right:22px; z-index:150; width:56px; height:56px; border-radius:50%;
-  background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 24px -8px rgba(0,0,0,0.4);
-  transition:transform .15s ease;
-}
-.whatsapp-float:hover{ transform:scale(1.06); }
-.whatsapp-float svg{ width:30px; height:30px; }
-@media (max-width:880px){
-  .promo-badge{ bottom:calc(160px + env(safe-area-inset-bottom, 0px)); }
-  .whatsapp-float{ bottom:calc(92px + env(safe-area-inset-bottom, 0px)); }
-}
+/* More tab tints while its sheet is open, for the same reason. */
+#moreTabBtn.tab-open{ color:var(--navy); }
+html[data-theme="dark"] #moreTabBtn.tab-open{ color:#8FD1FF; }
 
 /* Footer social icons */
 .footer-social{ display:flex; gap:10px; margin-top:14px; }
