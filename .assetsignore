@@ -1,0 +1,18 @@
+# Files that must never be served as public static assets.
+# Syntax matches .gitignore. Cloudflare Workers (wrangler deploy with
+# an [assets] block) uploads everything in the assets directory by
+# default, including dotfiles and repo metadata, unless excluded here.
+
+# Git internals: exposing this lets anyone reconstruct the full commit
+# history and repository contents via the objects store.
+.git
+.gitignore
+.github
+
+# Internal project/setup notes: not meant for public visibility
+# (mentions backend architecture, internal conventions, etc).
+CLAUDE.md
+README.md
+
+# Deploy tool config, not part of the site itself.
+wrangler.jsonc
